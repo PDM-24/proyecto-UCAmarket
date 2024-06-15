@@ -1,4 +1,4 @@
-# Proyecto: **UNISHOP**
+# Proyecto: **UCA MARKET**
 
 ## Diseño de interfaz:
-[Figma - Versión Web](https://www.figma.com/design/0qMJM76kxG1g2bo2AmyHj4/WEB?node-id=71-45).
+[Figma - Versión DEV](https://www.figma.com/design/NRUWAxMjGxCfl9hr70ljUV/UCA-MARKET?m=dev&node-id=0-1&t=puuoFRZ3CBZFBEOS-1).

@@ -13,3 +13,5 @@ val Pink40 = Color(0xFF7D5260)
 // Colores personalizados
 val azul = Color(0xFF123374)
 val grisTexto = Color(0xFF484848)
+val grisTextFields = Color(0xFFF2EDED)
+

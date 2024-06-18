@@ -2,9 +2,19 @@ package com.delgadojuarez.ucamarket.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.delgadojuarez.ucamarket.R
+
+val InriaSans = FontFamily(
+    Font(R.font.inriasans_bold, FontWeight.Bold),
+    Font(R.font.inriasans_light, FontWeight.Light),
+    Font(R.font.inriasans_lightitalic, FontWeight.ExtraLight),
+    Font(R.font.inriasans_italic, FontWeight.Thin),
+    Font(R.font.inriasans_regular, FontWeight.Normal)
+)
 
 // Set of Material typography styles to start with
 val Typography = Typography(

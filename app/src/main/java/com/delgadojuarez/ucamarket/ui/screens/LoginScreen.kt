@@ -14,10 +14,18 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Email
+import androidx.compose.material.icons.filled.MailOutline
+import androidx.compose.material.icons.sharp.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -25,18 +33,27 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.R
+import com.delgadojuarez.ucamarket.ui.navigation.ScreenRoute
 import com.delgadojuarez.ucamarket.ui.theme.azul
+import com.delgadojuarez.ucamarket.ui.theme.grisTextFields
 import com.delgadojuarez.ucamarket.ui.theme.grisTexto
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun LoginScreen(){
+fun LoginScreen(
+    viewModel: MainViewModel,
+    navController: NavController
+){
     var email by remember {
         mutableStateOf("")
     }
@@ -64,11 +81,18 @@ fun LoginScreen(){
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        OutlinedTextField(value = email, onValueChange = {
-            email = it
-        }, label = {
-            Text(text = "Correo electrónico")
-        },
+        OutlinedTextField(
+            value = email,
+            onValueChange = { email = it },
+            label = { Text(text = "Correo electrónico") },
+            leadingIcon = { Icon(imageVector = Icons.Filled.MailOutline, contentDescription = "Email") },
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = grisTextFields,
+                cursorColor = Color.Black,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp)
@@ -76,11 +100,18 @@ fun LoginScreen(){
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        OutlinedTextField(value = password, onValueChange = {
-            password = it
-        }, label = {
-            Text(text = "Contraseña")
-        },
+        OutlinedTextField(
+            value = password,
+            onValueChange = { password = it },
+            label = { Text(text = "Contraseña") },
+            leadingIcon = { Icon(imageVector = Icons.Sharp.Lock, contentDescription = "password")},
+            colors = TextFieldDefaults.outlinedTextFieldColors(
+                containerColor = grisTextFields,
+                cursorColor = Color.Black,
+                focusedBorderColor = Color.Transparent,
+                unfocusedBorderColor = Color.Transparent
+            ),
+            shape = RoundedCornerShape(12.dp),
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(horizontal = 50.dp),
@@ -127,6 +158,7 @@ fun LoginScreen(){
                 fontWeight = FontWeight.ExtraBold,
                 modifier = Modifier.clickable {
                 // Acción al hacer clic en "Regístrate"
+                    navController.navigate(ScreenRoute.Signup.route)
             })
     }
 

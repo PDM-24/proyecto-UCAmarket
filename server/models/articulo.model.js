@@ -7,12 +7,12 @@ const articuloShema = new Schema({
         required: true,
         trim: true
     },
-    descripcion: {
+    picture: {
         type: String,
-        trim: true,
-        required: true
+        required: true,
+        trim: true
     },
-    lista_deseos: {
+    descripcion: {
         type: String,
         trim: true,
         required: true
@@ -37,15 +37,10 @@ const articuloShema = new Schema({
         type: Boolean,
         default: false
     },
-    user: {
+    emprendimiento: {
         type: Schema.Types.ObjectId,
-        ref: "Usuario",
+        ref: "Emprendimiento",
         required:true
-    },
-    ofertas:{
-        type: [Schema.Types.ObjectId],
-        ref: "Usuario",
-        default: []
     }
 }, {timestamps: true});
 

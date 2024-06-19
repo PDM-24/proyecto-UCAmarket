@@ -14,13 +14,13 @@ validators.createArticuleValidator = [
         .trim()
         .notEmpty().withMessage("Description is required")
         .isLength( {min:4 , max:32 }).withMessage("Description format incorrect"),
-    body("lista_deseos")
-        .trim()
-        .notEmpty().withMessage("Lista_deseos is required")
-        .isString().withMessage("Lista_deseos format incorrect"),
-    body("precio")
+    body("picture")
         .optional()
         .trim()
+        .isString().withMessage("picture format incorrect"),
+    body("precio")
+        .trim()
+        .notEmpty().withMessage("Precio is required")
         .isNumeric().withMessage("Precio format incorrect"),
     body("etiqueta")
         .optional()
@@ -47,24 +47,6 @@ validators.disponibilidadValidator = [
     body("estado")
         .notEmpty().withMessage("Status is required")
         .isIn(["Disponible", "Agotado", "Reservado"]).withMessage("Status value incorrect")
-];
-
-validators.idInParams = [
-    param("id")
-        .notEmpty().withMessage("ID is required")
-        .isMongoId().withMessage("ID is MongoID")
-];
-
-validators.paginationValidator = [
-    query("paginator")
-        .notEmpty().withMessage("Pagination is required")
-        .isBoolean().withMessage("Pagination is boolean"),
-    query("limit")
-        .optional()
-        .isNumeric().withMessage("Limit is a number"),
-    query("offset")
-        .optional()
-        .isNumeric().withMessage("Offset is a number")
 ];
 
 module.exports = validators;

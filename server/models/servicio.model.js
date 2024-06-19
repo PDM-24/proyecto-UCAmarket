@@ -7,20 +7,15 @@ const servicioShema = new Schema({
         required: true,
         trim: true
     },
-    tarifa:{
-        type: float,
-        trim: true,
-        required: true
-    },
     descripcion: {
         type: String,
         trim: true,
         required: true
     },
     contacto: {
-        type: String,
-        trim: true,
-        required: true
+        type: Schema.Types.ObjectId,
+        ref: "Emprendimiento",
+        required:true
     }
 }, {timestamps: true});
 

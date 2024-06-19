@@ -1,24 +1,20 @@
 const { createToken, verifyToken } = require("../utils/jwt.tools");
-const User = require("../models/usuario.model");
-const ROLES = require("../data/roles.constants.json");
-const Articulo = require("../models/articulo.model");
+const Emprendimiento = require("../models/emprendimiento.model");
 
 const controller = {};
-
 controller.register = async (req, res, next) => {
   try {
     const { username, email, password } = req.body;
-    const user = await User.findOne({
-      $or: [{ username: username }, { correo: email }],
+    const user = await Emprendimiento.findOne({
+      $or: [{ nombre: username }, { correo: email }],
     });
     if (user) {
       return res.status(409).json({ error: "User already exists!" });
     }
-    const newUser = new User({
-      username: username,
+    const newUser = new Emprendimiento({
+      nombre: username,
       correo: email,
-      contrasenia: password,
-      roles: [ROLES.USER],
+      contrasenia: password
     });
     await newUser.save();
     return res.status(201).json({ message: "User registered" });
@@ -31,7 +27,7 @@ controller.register = async (req, res, next) => {
 controller.login = async (req, res, next) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ correo: email });
+    const user = await Emprendimiento.findOne({ correo: email });
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -59,10 +55,10 @@ controller.login = async (req, res, next) => {
 
 controller.aboutMe = async (req, res, next) => {
   try {
-    const { _id, username, correo, roles, profile_pic, reputacion } = req.user;
+    const { _id, nombre, correo, profile_pic, whatsapp, descripcion} = req.emprendimiento;
     return res
       .status(200)
-      .json({ _id, username, correo, roles, profile_pic, reputacion });
+      .json({ _id, nombre, correo, profile_pic, whatsapp, descripcion });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -72,9 +68,7 @@ controller.aboutMe = async (req, res, next) => {
 controller.findOneUser = async (req, res, next) => {
   try {
     const { id } = req.params;
-    const user = await User.findById(id);
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");
+    const user = await Emprendimiento.findById(id);
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -88,17 +82,15 @@ controller.findOneUser = async (req, res, next) => {
 controller.findAll = async (req, res, next) => {
   try {
     const { pagination = true, limit = 5, offset = 0 } = req.query;
-    const articules = await User.find({ hidden: false }, undefined, {
+    const emprendimientos = await Emprendimiento.find({ hidden: false }, undefined, {
       sort: [{ createdAt: -1 }],
       limit: pagination ? limit : undefined,
       skip: pagination ? offset : undefined,
     });
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");
     return res
       .status(200)
       .json({
-        articules,
+        emprendimientos,
         count: pagination
           ? await User.countDocuments({ hidden: false })
           : undefined,
@@ -112,18 +104,17 @@ controller.findAll = async (req, res, next) => {
 controller.updateUser = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const { username, picture, desc } = req.body;
-    const updatedUser = await User.findByIdAndUpdate(
+    const { username, picture, desc, whatsapp } = req.body;
+    const updatedUser = await Emprendimiento.findByIdAndUpdate(
       _id,
       {
-        username: username,
+        nombre: username,
         profile_pic: picture,
-        desc: desc,
+        descripcion: desc,
+        whatsapp: whatsapp
       },
       { new: true }
     );
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");;
     if (!updatedUser) {
       return res.status(500).json({ error: "User not found" });
     }
@@ -138,7 +129,7 @@ controller.changePassword = async (req, res, next) => {
   try {
     const { _id } = req.user;
     const { password } = req.body;
-    const myUser = await User.findById(_id);
+    const myUser = await Emprendimiento.findById(_id);
     if (!myUser) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -150,33 +141,6 @@ controller.changePassword = async (req, res, next) => {
       return res.status(500).json({ error: "Password not updated" });
     }
     return res.status(200).json({ message: "User password updated" });
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-};
-
-controller.editWishlist = async (req, res, next) => {
-  try {
-    const { articuloId } = req.body;
-    const user = req.user; // El usuario autenticado se obtiene del middleware
-    // Verificar que el artículo exista
-    const articulo = await Articulo.findById(articuloId);
-    if (!articulo) {
-      return res.status(404).json({ message: 'Artículo no encontrado' });
-    }
-    // Verificar si el artículo ya está en la wishlist del usuario
-    const wishlistItemIndex = user.wishlist.findIndex(item => item.user.toString() === articuloId);
-    if (wishlistItemIndex !== -1) {
-      // Si el artículo ya está en la wishlist, eliminarlo
-      user.wishlist.splice(wishlistItemIndex, 1);
-      await user.save();
-      return res.status(200).json({ message: 'Artículo eliminado de la wishlist', wishlist: user.wishlist });
-    }
-    // Si el artículo no está en la wishlist, agregarlo
-    user.wishlist.push({ user: articuloId, timestamps: new Date() });
-    await user.save();
-    return res.status(200).json({ message: 'Artículo agregado a la wishlist', wishlist: user.wishlist });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

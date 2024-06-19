@@ -38,6 +38,10 @@ validators.updateUserValidator = [
         .trim()
         .isString().withMessage("Desc is a String")
         .isLength( { max:150 }).withMessage("Contact format incorrect"),
+    body("whatsapp")
+        .optional()
+        .trim()
+        .isString().withMessage("Whatsapp format incorrect")
 ];
 
 module.exports = validators;

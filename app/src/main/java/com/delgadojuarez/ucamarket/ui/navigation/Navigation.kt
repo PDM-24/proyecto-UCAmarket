@@ -6,6 +6,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
+import com.delgadojuarez.ucamarket.ui.screens.AddProduct
 import com.delgadojuarez.ucamarket.ui.screens.Home
 import com.delgadojuarez.ucamarket.ui.screens.LoginScreen
 import com.delgadojuarez.ucamarket.ui.screens.ProductDetail
@@ -29,6 +30,9 @@ fun Navigation(
         }
         composable(route = ScreenRoute.ProductDetail.route){
             ProductDetail()
+        }
+        composable(route = ScreenRoute.Add.route){
+            AddProduct(viewModel, navController)
         }
     }
 }

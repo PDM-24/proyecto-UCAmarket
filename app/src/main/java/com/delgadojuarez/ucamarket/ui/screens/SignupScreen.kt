@@ -74,6 +74,7 @@ fun SignupScreen(
         mutableStateOf("")
     }
 
+    // Variables para Dropdown Menu
     var expanded by remember { mutableStateOf(false) }
     val usuarios = listOf(
         "Cliente",

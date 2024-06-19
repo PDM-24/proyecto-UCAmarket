@@ -45,6 +45,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
+import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.CustomOutlinedTextField
 import com.delgadojuarez.ucamarket.ui.component.TopBar
 import com.delgadojuarez.ucamarket.ui.theme.InriaSans
@@ -228,18 +229,13 @@ fun SignupScreen(
             Spacer(modifier = Modifier.height(128.dp))
             Spacer(modifier = Modifier.height(60.dp))
 
-            Button(onClick = {
-                Log.i("Credential","Email : $email Nombre : $nombre")
-            },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 50.dp)
-                    .height(50.dp),
-                colors = ButtonDefaults.buttonColors(containerColor = azul),
-                elevation = ButtonDefaults.buttonElevation(5.dp)
-            ) {
-                Text(text = "Guardar")
-            }
+            AppButton(
+                text = "Guardar",
+                onClick = {
+                    // Accion al dar click
+                    Log.i("Credential","Email : $email Nombre : $nombre")
+                }
+            )
         }
     }
 }

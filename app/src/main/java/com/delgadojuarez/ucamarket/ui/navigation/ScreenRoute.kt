@@ -5,4 +5,5 @@ sealed class ScreenRoute (var route: String){
     object Signup: ScreenRoute("Registro")
     object Home: ScreenRoute("Home")
     object ProductDetail: ScreenRoute("Detalle de producto")
+    object Add: ScreenRoute("Agregar producto")
 }

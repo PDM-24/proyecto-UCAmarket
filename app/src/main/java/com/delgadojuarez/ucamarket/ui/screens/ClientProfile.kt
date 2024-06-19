@@ -8,12 +8,12 @@ import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.ui.component.BottomNavBar
 
 @Composable
-fun Home(
+fun ClientProfile(
     viewModel: MainViewModel,
     navController: NavController
 ){
     Column {
-        Text(text = "Pantalla principal")
+        Text(text = "Pantalla de perfil de usuario")
         BottomNavBar(navController = navController)
     }
 }

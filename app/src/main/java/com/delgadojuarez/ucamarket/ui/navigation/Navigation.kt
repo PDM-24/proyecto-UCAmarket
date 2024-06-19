@@ -7,6 +7,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.ui.screens.AddProduct
+import com.delgadojuarez.ucamarket.ui.screens.ClientProfile
 import com.delgadojuarez.ucamarket.ui.screens.EditProduct
 import com.delgadojuarez.ucamarket.ui.screens.EditProfile
 import com.delgadojuarez.ucamarket.ui.screens.Home
@@ -20,7 +21,7 @@ fun Navigation(
 ){
     val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = ScreenRoute.Signin.route) {
+    NavHost(navController = navController, startDestination = ScreenRoute.Home.route) {
         composable(route = ScreenRoute.Signin.route){
             LoginScreen(viewModel, navController)
         }
@@ -28,7 +29,7 @@ fun Navigation(
             SignupScreen(viewModel, navController)
         }
         composable(route = ScreenRoute.Home.route){
-            Home()
+            Home(viewModel, navController)
         }
         composable(route = ScreenRoute.ProductDetail.route){
             ProductDetail()
@@ -41,6 +42,9 @@ fun Navigation(
         }
         composable(route = ScreenRoute.EditProfile.route){
             EditProfile(viewModel, navController)
+        }
+        composable(route = ScreenRoute.clientProfile.route){
+            ClientProfile(viewModel, navController)
         }
     }
 }

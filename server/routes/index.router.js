@@ -3,7 +3,7 @@ const router = express.Router();
 
 const authRouter = require("./auth.router")
 const emprendimientoRouter = require("./emprendimiento.router")
-const productRouter = require("./articulo.router")
+const productRouter = require("./articule.router")
 // const serviceRouter = require("./servicio.router")
 const etiquetaRouter = require("./etiqueta.router")
 

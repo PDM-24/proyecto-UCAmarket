@@ -8,6 +8,7 @@ import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.ui.screens.AddProduct
 import com.delgadojuarez.ucamarket.ui.screens.EditProduct
+import com.delgadojuarez.ucamarket.ui.screens.EditProfile
 import com.delgadojuarez.ucamarket.ui.screens.Home
 import com.delgadojuarez.ucamarket.ui.screens.LoginScreen
 import com.delgadojuarez.ucamarket.ui.screens.ProductDetail
@@ -37,6 +38,9 @@ fun Navigation(
         }
         composable(route = ScreenRoute.EditProduct.route){
             EditProduct(viewModel, navController)
+        }
+        composable(route = ScreenRoute.EditProfile.route){
+            EditProfile(viewModel, navController)
         }
     }
 }

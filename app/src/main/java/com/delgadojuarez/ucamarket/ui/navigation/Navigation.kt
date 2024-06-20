@@ -11,9 +11,11 @@ import com.delgadojuarez.ucamarket.ui.screens.ClientProfile
 import com.delgadojuarez.ucamarket.ui.screens.EditProduct
 import com.delgadojuarez.ucamarket.ui.screens.EditProfile
 import com.delgadojuarez.ucamarket.ui.screens.Home
+import com.delgadojuarez.ucamarket.ui.screens.ListProducts
 import com.delgadojuarez.ucamarket.ui.screens.LoginScreen
 import com.delgadojuarez.ucamarket.ui.screens.ProductDetail
 import com.delgadojuarez.ucamarket.ui.screens.SignupScreen
+import com.delgadojuarez.ucamarket.ui.screens.Wishlist
 
 @Composable
 fun Navigation(
@@ -45,6 +47,12 @@ fun Navigation(
         }
         composable(route = ScreenRoute.clientProfile.route){
             ClientProfile(viewModel, navController)
+        }
+        composable(route = ScreenRoute.wishlist.route){
+            Wishlist(viewModel, navController)
+        }
+        composable(route = ScreenRoute.listProducts.route){
+            ListProducts(viewModel, navController)
         }
     }
 }

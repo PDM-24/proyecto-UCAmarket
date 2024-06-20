@@ -18,6 +18,10 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -37,6 +41,8 @@ fun TopBar(
 
     // Calculando ruta actual
     val currentRoute = navController.currentBackStackEntry?.destination?.route
+
+    var isFavorite by remember { mutableStateOf(false) }
 
     Row (
         modifier = Modifier
@@ -67,11 +73,11 @@ fun TopBar(
         if(currentRoute == ScreenRoute.ProductDetail.route){
             IconButton(
                 modifier = Modifier.wrapContentSize(),
-                onClick = {  }
+                onClick = { isFavorite = !isFavorite } // Cambia el estado al hacer clic
             ) {
                 Icon(
                     modifier = Modifier.padding(end = 20.dp),
-                    imageVector = Icons.Default.FavoriteBorder,
+                    imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "Favorito",
                     tint = Color.Black
                 )

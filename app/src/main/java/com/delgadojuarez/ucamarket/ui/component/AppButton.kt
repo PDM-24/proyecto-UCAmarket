@@ -25,7 +25,7 @@ fun AppButton(
         onClick = onClick,
         modifier = modifier
             .fillMaxWidth()
-            .padding(horizontal = 50.dp)
+            .padding(horizontal = 50.dp, vertical = 30.dp)
             .height(50.dp),
         colors = ButtonDefaults.buttonColors(containerColor = backgroundColor),
         elevation = ButtonDefaults.buttonElevation(elevation)

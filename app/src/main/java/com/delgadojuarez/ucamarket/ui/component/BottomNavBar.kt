@@ -44,7 +44,7 @@ fun BottomNavBar(
     Row (
         modifier = Modifier
             .fillMaxWidth()
-            .height(80.dp)
+            .height(110.dp)
             .background(Color.White),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Center
@@ -71,7 +71,7 @@ fun BottomNavBar(
                     fontWeight = FontWeight.Bold
                 )
             }
-            if(currentRoute == ScreenRoute.clientProfile.route){
+            if(currentRoute == ScreenRoute.clientProfile.route || currentRoute == ScreenRoute.enterprisingProfile.route){
                 Icon(
                     imageVector = Icons.Outlined.Home,
                     contentDescription = "Home",
@@ -112,7 +112,7 @@ fun BottomNavBar(
                     modifier = Modifier.padding(start = 11.dp)
                 )
             }
-            if(currentRoute == ScreenRoute.clientProfile.route){
+            if(currentRoute == ScreenRoute.clientProfile.route || currentRoute == ScreenRoute.enterprisingProfile.route){
                 Icon(
                     imageVector = Icons.Filled.Person,
                     contentDescription = "Profile",

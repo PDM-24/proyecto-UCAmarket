@@ -19,6 +19,7 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -74,44 +75,88 @@ fun AddProduct(
     )
     var selectedIndex by remember { mutableStateOf(categoria[0]) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
+    Scaffold(
+        topBar = {
+            Spacer(modifier = Modifier.height(40.dp))
 
-        TopBar(
-            title = "Agregar producto",
-            navController = navController
-        )
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            CustomOutlinedTextField(
-                value = nombreProducto,
-                onValueChange = { nombreProducto = it },
-                label = "Nombre de producto"
+            TopBar(
+                title = "Agregar producto",
+                navController = navController
             )
-
-            Spacer(modifier = Modifier.height(27.dp))
-
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
+        },
+        bottomBar = {
+            AppButton(
+                text = "Guardar",
+                onClick = {
+                    // Accion al dar click
+                }
+            )
+        }
+    ) {innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(Color.White)
+        ) {
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                //verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                TextField(
+                CustomOutlinedTextField(
+                    value = nombreProducto,
+                    onValueChange = { nombreProducto = it },
+                    label = "Nombre de producto"
+                )
+
+                Spacer(modifier = Modifier.height(27.dp))
+
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded },
                     modifier = Modifier
                         .fillMaxWidth()
-                        .menuAnchor(),
-                    value = selectedIndex,
-                    onValueChange = {},
-                    label = { Text(text = "Categoría de producto") },
+                        .padding(horizontal = 30.dp)
+                ) {
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .menuAnchor(),
+                        value = selectedIndex,
+                        onValueChange = {},
+                        label = { Text(text = "Categoría de producto") },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            containerColor = grisTextFields,
+                            cursorColor = Color.Black,
+                            focusedBorderColor = Color.Transparent,
+                            unfocusedBorderColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(12.dp),
+                        readOnly = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
+                    )
+                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        categoria.forEachIndexed { index, Categoria ->
+                            DropdownMenuItem(
+                                text = { Text(text = Categoria) },
+                                onClick = {
+                                    selectedIndex = categoria[index]
+                                    expanded = false
+                                },
+                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = precio,
+                    onValueChange = { precio = it },
+                    label = { Text(text = "Precio") },
+                    trailingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_attach_money_24), contentDescription = "Precio")},
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         containerColor = grisTextFields,
                         cursorColor = Color.Black,
@@ -119,80 +164,39 @@ fun AddProduct(
                         unfocusedBorderColor = Color.Transparent
                     ),
                     shape = RoundedCornerShape(12.dp),
-                    readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
                 )
-                ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    categoria.forEachIndexed { index, Categoria ->
-                        DropdownMenuItem(
-                            text = { Text(text = Categoria) },
-                            onClick = {
-                                selectedIndex = categoria[index]
-                                expanded = false
-                            },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                        )
-                    }
-                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                CustomOutlinedTextField(
+                    value = foto,
+                    onValueChange = { foto = it },
+                    label = "Fotografía"
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = descripcion,
+                    onValueChange = { descripcion = it },
+                    label = { Text(text = "Descripcion") },
+                    singleLine = false,
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = grisTextFields,
+                        cursorColor = Color.Black,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                        .height(140.dp)
+                )
             }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = precio,
-                onValueChange = { precio = it },
-                label = { Text(text = "Precio") },
-                trailingIcon = { Icon(painter = painterResource(id = R.drawable.baseline_attach_money_24), contentDescription = "Precio")},
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = grisTextFields,
-                    cursorColor = Color.Black,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            CustomOutlinedTextField(
-                value = foto,
-                onValueChange = { foto = it },
-                label = "Fotografía"
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = descripcion,
-                onValueChange = { descripcion = it },
-                label = { Text(text = "Descripcion") },
-                singleLine = false,
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = grisTextFields,
-                    cursorColor = Color.Black,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-                    .height(140.dp)
-            )
-
-            Spacer(modifier = Modifier.height(128.dp))
-            Spacer(modifier = Modifier.height(60.dp))
-
-            AppButton(
-                text = "Guardar",
-                onClick = {
-                    // Accion al dar click
-                }
-            )
-
         }
     }
 }

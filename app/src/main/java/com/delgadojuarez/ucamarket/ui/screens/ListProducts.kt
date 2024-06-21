@@ -8,8 +8,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.delgadojuarez.ucamarket.MainViewModel
+import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.ProductCard
 import com.delgadojuarez.ucamarket.ui.component.TopBar
+import com.delgadojuarez.ucamarket.ui.navigation.ScreenRoute
 
 @Composable
 fun ListProducts(
@@ -24,5 +26,17 @@ fun ListProducts(
         Spacer(modifier = Modifier.height(30.dp))
 
         ProductCard(productName = "Camisa elegante", entrepreneurshipName = "Ropa sv", productPrice = "$7.99", navController = navController)
+
+        Spacer(modifier = Modifier.height(128.dp))
+        Spacer(modifier = Modifier.height(128.dp))
+        Spacer(modifier = Modifier.height(128.dp))
+        Spacer(modifier = Modifier.height(128.dp))
+
+        AppButton(
+            text = "Agregar producto",
+            onClick = {
+                navController.navigate(ScreenRoute.Add.route)
+            }
+        )
     }
 }

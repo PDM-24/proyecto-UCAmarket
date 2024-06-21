@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AccountCircle
@@ -37,7 +38,7 @@ import com.delgadojuarez.ucamarket.ui.theme.InriaSans
 import com.delgadojuarez.ucamarket.ui.theme.rojo
 
 @Composable
-fun ClientProfile(
+fun EnterprisingProfile(
     viewModel: MainViewModel,
     navController: NavController
 ){
@@ -105,9 +106,30 @@ fun ClientProfile(
         Row(
             modifier = Modifier.fillMaxWidth()
         ) {
+            Icon(
+                painterResource(id = R.drawable.outline_shopping_bag_24), contentDescription = "Bag", modifier = Modifier
+                    .padding(start = 40.dp, end = 10.dp))
+            Text(
+                text = "Mis productos",
+                fontFamily = InriaSans,
+                fontWeight = FontWeight.Bold,
+                fontSize = 20.sp
+            )
+
+            Spacer(modifier = Modifier.weight(1f))
+
+            Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
+                .padding(end = 30.dp))
+        }
+
+        Spacer(modifier = Modifier.height(30.dp))
+
+        Row (
+            modifier = Modifier.fillMaxWidth()
+        ){
             Icon(imageVector = Icons.Outlined.ExitToApp, contentDescription = "Salir", tint = rojo,
                 modifier = Modifier
-                .padding(start = 40.dp, end = 10.dp))
+                    .padding(start = 40.dp, end = 10.dp))
             Text(
                 text = "Cerrar sesión",
                 fontFamily = InriaSans,
@@ -132,11 +154,11 @@ fun ClientProfile(
 
 @Preview(showBackground = true)
 @Composable
-fun ClientProfilePreview() {
+fun EnterprisingProfilePreview() {
     val fakeViewModel = MainViewModel()
     val fakeNavController = rememberNavController()
 
-    ClientProfile(
+    EnterprisingProfile(
         viewModel = fakeViewModel,
         navController = fakeNavController
     )

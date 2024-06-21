@@ -42,15 +42,11 @@ const userShema = new Schema({
         type: String,
         default: ""
     },
-    reputacion:{
+    wishlist:{
         type: [{
             user: {
                 type: Schema.Types.ObjectId,
-                ref: "Usuario",
-                required: true
-            },
-            recomendacion: {
-                type: Boolean,
+                ref: "Articulo",
                 required: true
             },
             timestamps: {

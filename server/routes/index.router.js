@@ -2,15 +2,14 @@ const express = require("express");
 const router = express.Router();
 
 const authRouter = require("./auth.router")
-const articuleRouter = require("./articule.router")
-const imgRouter = require("./imagen.router")
+const emprendimientoRouter = require("./emprendimiento.router")
+const productRouter = require("./articule.router")
+// const serviceRouter = require("./servicio.router")
 const etiquetaRouter = require("./etiqueta.router")
-const compraRouter = require("./compra.router")
 
 router.use("/auth", authRouter);
-router.use("/articule", articuleRouter);
-router.use("/Imagen", imgRouter);
+router.use("/emprendimiento", emprendimientoRouter);
+router.use("/product", productRouter);
+// router.use("/service",serviceRouter);
 router.use("/etiqueta", etiquetaRouter);
-router.use("/compras", compraRouter);
-
 module.exports = router;

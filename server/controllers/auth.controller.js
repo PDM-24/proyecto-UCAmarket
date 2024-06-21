@@ -59,10 +59,10 @@ controller.login = async (req, res, next) => {
 
 controller.aboutMe = async (req, res, next) => {
   try {
-    const { _id, username, correo, roles, profile_pic, reputacion } = req.user;
+    const { _id, username, correo, profile_pic, desc, wishlist } = req.user;
     return res
       .status(200)
-      .json({ _id, username, correo, roles, profile_pic, reputacion });
+      .json({ _id, username, correo, profile_pic, desc, wishlist });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });

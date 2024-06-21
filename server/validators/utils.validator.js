@@ -9,7 +9,7 @@ validators.idInParams = [
 ];
 
 validators.paginationValidator = [
-    query("paginator")
+    query("pagination")
         .notEmpty().withMessage("Pagination is required")
         .isBoolean().withMessage("Pagination is boolean"),
     query("limit")

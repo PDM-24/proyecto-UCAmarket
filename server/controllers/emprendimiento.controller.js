@@ -92,7 +92,7 @@ controller.findAll = async (req, res, next) => {
       .json({
         emprendimientos,
         count: pagination
-          ? await User.countDocuments({ hidden: false })
+          ? await Emprendimiento.countDocuments({ hidden: false })
           : undefined,
       });
   } catch (error) {

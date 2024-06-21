@@ -30,6 +30,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.ui.navigation.ScreenRoute
 import com.delgadojuarez.ucamarket.ui.theme.InriaSans
 
@@ -47,6 +48,7 @@ fun TopBar(
     Row (
         modifier = Modifier
             .fillMaxWidth()
+            .padding(vertical = 30.dp)
             .background(Color.White),
         verticalAlignment = Alignment.CenterVertically
     ){
@@ -56,7 +58,7 @@ fun TopBar(
             modifier = Modifier
                 .padding(start = 20.dp, end = 8.dp)
                 .clickable {
-                           navController.popBackStack()
+                    navController.popBackStack()
                 },
             tint = Color.Black
         )
@@ -83,7 +85,12 @@ fun TopBar(
                 )
             }
         }
-
     }
+}
 
+@Preview
+@Composable
+fun topbarPreview(){
+    val fakeNavController = rememberNavController()
+    TopBar(title = "Ejemplo", navController = fakeNavController)
 }

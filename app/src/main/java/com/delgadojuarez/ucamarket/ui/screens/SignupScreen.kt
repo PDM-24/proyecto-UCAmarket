@@ -25,6 +25,7 @@ import androidx.compose.material3.ExposedDropdownMenuBox
 import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
@@ -87,148 +88,14 @@ fun SignupScreen(
 
     val isReadOnly by derivedStateOf { selectedIndex != "Emprendedor" }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-
-        TopBar(
-            title = "Registro",
-            navController = navController
-        )
-
-        Column(
-            modifier = Modifier.fillMaxSize(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-
-            CustomOutlinedTextField(
-                value = nombre,
-                onValueChange = { nombre = it },
-                label = "Nombre completo"
+    Scaffold (
+        topBar = {
+            TopBar(
+                title = "Registro",
+                navController = navController
             )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
-                label = { Text(text = "Correo electrónico") },
-                trailingIcon = { Icon(imageVector = Icons.Filled.MailOutline, contentDescription = "Email")},
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = grisTextFields,
-                    cursorColor = Color.Black,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = telefono,
-                onValueChange = { telefono = it },
-                label = { Text(text = "Número de teléfono") },
-                trailingIcon = { Icon(imageVector = Icons.Filled.Phone, contentDescription = "Telefono")},
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = grisTextFields,
-                    cursorColor = Color.Black,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            ExposedDropdownMenuBox(
-                expanded = expanded,
-                onExpandedChange = { expanded = !expanded },
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            ) {
-                TextField(
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .menuAnchor(),
-                    value = selectedIndex,
-                    onValueChange = {},
-                    label = { Text(text = "Tipo de usuario *") },
-                    colors = TextFieldDefaults.outlinedTextFieldColors(
-                        containerColor = grisTextFields,
-                        cursorColor = Color.Black,
-                        focusedBorderColor = Color.Transparent,
-                        unfocusedBorderColor = Color.Transparent
-                    ),
-                    shape = RoundedCornerShape(12.dp),
-                    readOnly = true,
-                    trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
-                )
-                ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
-                    usuarios.forEachIndexed { index, usuario ->
-                        DropdownMenuItem(
-                            text = { Text(text = usuario) },
-                            onClick = {
-                                selectedIndex = usuarios[index]
-                                expanded = false
-                            },
-                            contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
-                        )
-                    }
-                }
-            }
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = nombreEmprendimiento,
-                onValueChange = { if (!isReadOnly) nombreEmprendimiento = it },
-                label = { Text(text = "Nombre del emprendimiento") },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = if (isReadOnly) Color.LightGray else grisTextFields, // Cambia el color de fondo si está desactivado
-                    cursorColor = if (isReadOnly) Color.Transparent else Color.Black, // Oculta el cursor si está desactivado
-                    focusedBorderColor = if (isReadOnly) Color.Transparent else Color.Black, // Cambia el color del borde si está desactivado
-                    unfocusedBorderColor = if (isReadOnly) Color.Transparent else grisTextFields // Cambia el color del borde si está desactivado
-                ),
-                shape = RoundedCornerShape(12.dp),
-                readOnly = isReadOnly,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            )
-
-            Spacer(modifier = Modifier.height(20.dp))
-
-            OutlinedTextField(
-                value = foto,
-                onValueChange = { foto = it },
-                label = { Text(text = "Fotografía") },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    containerColor = grisTextFields,
-                    cursorColor = Color.Black,
-                    focusedBorderColor = Color.Transparent,
-                    unfocusedBorderColor = Color.Transparent
-                ),
-                shape = RoundedCornerShape(12.dp),
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(horizontal = 30.dp)
-            )
-
-            Spacer(modifier = Modifier.height(128.dp))
-            Spacer(modifier = Modifier.height(60.dp))
-
+        },
+        bottomBar = {
             AppButton(
                 text = "Guardar",
                 onClick = {
@@ -236,6 +103,142 @@ fun SignupScreen(
                     Log.i("Credential","Email : $email Nombre : $nombre")
                 }
             )
+        }
+    ){innerPadding ->
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .background(Color.White)
+                .padding(innerPadding)
+        ) {
+
+            Column(
+                modifier = Modifier.fillMaxSize(),
+                //verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ) {
+
+                CustomOutlinedTextField(
+                    value = nombre,
+                    onValueChange = { nombre = it },
+                    label = "Nombre completo"
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = email,
+                    onValueChange = { email = it },
+                    label = { Text(text = "Correo electrónico") },
+                    trailingIcon = { Icon(imageVector = Icons.Filled.MailOutline, contentDescription = "Email")},
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = grisTextFields,
+                        cursorColor = Color.Black,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = telefono,
+                    onValueChange = { telefono = it },
+                    label = { Text(text = "Número de teléfono") },
+                    trailingIcon = { Icon(imageVector = Icons.Filled.Phone, contentDescription = "Telefono")},
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = grisTextFields,
+                        cursorColor = Color.Black,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                ExposedDropdownMenuBox(
+                    expanded = expanded,
+                    onExpandedChange = { expanded = !expanded },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                ) {
+                    TextField(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .menuAnchor(),
+                        value = selectedIndex,
+                        onValueChange = {},
+                        label = { Text(text = "Tipo de usuario *") },
+                        colors = TextFieldDefaults.outlinedTextFieldColors(
+                            containerColor = grisTextFields,
+                            cursorColor = Color.Black,
+                            focusedBorderColor = Color.Transparent,
+                            unfocusedBorderColor = Color.Transparent
+                        ),
+                        shape = RoundedCornerShape(12.dp),
+                        readOnly = true,
+                        trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) }
+                    )
+                    ExposedDropdownMenu(expanded = expanded, onDismissRequest = { expanded = false }) {
+                        usuarios.forEachIndexed { index, usuario ->
+                            DropdownMenuItem(
+                                text = { Text(text = usuario) },
+                                onClick = {
+                                    selectedIndex = usuarios[index]
+                                    expanded = false
+                                },
+                                contentPadding = ExposedDropdownMenuDefaults.ItemContentPadding
+                            )
+                        }
+                    }
+                }
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = nombreEmprendimiento,
+                    onValueChange = { if (!isReadOnly) nombreEmprendimiento = it },
+                    label = { Text(text = "Nombre del emprendimiento") },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = if (isReadOnly) Color.LightGray else grisTextFields, // Cambia el color de fondo si está desactivado
+                        cursorColor = if (isReadOnly) Color.Transparent else Color.Black, // Oculta el cursor si está desactivado
+                        focusedBorderColor = if (isReadOnly) Color.Transparent else Color.Black, // Cambia el color del borde si está desactivado
+                        unfocusedBorderColor = if (isReadOnly) Color.Transparent else grisTextFields // Cambia el color del borde si está desactivado
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    readOnly = isReadOnly,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = foto,
+                    onValueChange = { foto = it },
+                    label = { Text(text = "Fotografía") },
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = grisTextFields,
+                        cursorColor = Color.Black,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                )
+            }
         }
     }
 }

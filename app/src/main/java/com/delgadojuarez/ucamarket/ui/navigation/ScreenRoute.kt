@@ -12,4 +12,5 @@ sealed class ScreenRoute (var route: String){
     object enterprisingProfile: ScreenRoute("Perfil de usuario emprendedor")
     object wishlist: ScreenRoute("Lista de favoritos")
     object listProducts: ScreenRoute("Lista de productos de emprendedor")
+    object productDetail: ScreenRoute("Detalle de producto")
 }

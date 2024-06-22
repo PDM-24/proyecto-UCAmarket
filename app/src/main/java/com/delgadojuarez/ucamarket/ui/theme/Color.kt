@@ -15,5 +15,9 @@ val azul = Color(0xFF123374)
 val grisTexto = Color(0xFF484848)
 val grisTextFields = Color(0xFFF2EDED)
 val rojo = Color(0xFFFF0505)
+val gris_lupa = Color(0xFFA9A5A5)
+val gris_card = Color(0xFFE9E9E9)
+
+
 
 

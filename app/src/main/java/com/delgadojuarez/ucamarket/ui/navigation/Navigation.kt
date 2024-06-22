@@ -43,9 +43,6 @@ fun Navigation(
         composable(route = ScreenRoute.EditProduct.route){
             EditProduct(viewModel, navController)
         }
-        composable(route = ScreenRoute.EditProfile.route){
-            EditProfile(viewModel, navController)
-        }
         composable(route = ScreenRoute.clientProfile.route){
             ClientProfile(viewModel, navController)
         }

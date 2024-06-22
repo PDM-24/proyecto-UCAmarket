@@ -17,9 +17,11 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.KeyboardArrowRight
 import androidx.compose.material.icons.outlined.AccountCircle
 import androidx.compose.material.icons.outlined.ExitToApp
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Person
 import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
@@ -52,102 +54,136 @@ fun ClientProfile(
 ){
     var enabled by remember { mutableStateOf(true) }
 
-    Column(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
-    ) {
-        Spacer(modifier = Modifier.height(40.dp))
-
-        Row(
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "Perfil", modifier = Modifier
-                .padding(start = 40.dp, end = 10.dp).size(30.dp))
-            Text(
-                text = "Perfil",
-                fontFamily = InriaSans,
-                fontWeight = FontWeight.ExtraBold,
-                fontSize = 20.sp
-            )
+    Scaffold(
+        bottomBar = {
+            BottomNavBar(navController = navController)
         }
-
-        Spacer(modifier = Modifier.height(40.dp))
-
+    ) {innerPadding ->
         Column(
-            modifier = Modifier.fillMaxWidth(),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ){
-            Image(painter = painterResource(id = R.drawable.profile_img), contentDescription = "Imagen perfil",
-                modifier = Modifier
-                    .size(150.dp)
-                    .padding(bottom = 12.dp))
-            Text(text = "Alexander Ainsley",
-                modifier = Modifier.padding(bottom = 8.dp),
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp
-            )
-            Spacer(modifier = Modifier.height(10.dp))
-            Divider(modifier = Modifier.padding(horizontal = 40.dp))
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .background(Color.White)
+        ) {
+            Spacer(modifier = Modifier.height(40.dp))
 
-        }
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Row (
-            modifier = Modifier.fillMaxWidth()
-        ){
-            Icon(imageVector = Icons.Outlined.Person, contentDescription = "Perfil", modifier = Modifier
-                .padding(start = 40.dp, end = 10.dp).clickable{navController.navigate(ScreenRoute.EditProfile.route)})
-            ClickableText(
-                text = AnnotatedString("Editar perfil"),
-                style = TextStyle(
+            Row(
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Icon(imageVector = Icons.Outlined.AccountCircle, contentDescription = "Perfil", modifier = Modifier
+                    .padding(start = 40.dp, end = 10.dp)
+                    .size(30.dp))
+                Text(
+                    text = "Perfil",
                     fontFamily = InriaSans,
+                    fontWeight = FontWeight.ExtraBold,
+                    fontSize = 20.sp
+                )
+            }
+
+            Spacer(modifier = Modifier.height(40.dp))
+
+            Column(
+                modifier = Modifier.fillMaxWidth(),
+                verticalArrangement = Arrangement.Center,
+                horizontalAlignment = Alignment.CenterHorizontally
+            ){
+                Image(painter = painterResource(id = R.drawable.profile_img), contentDescription = "Imagen perfil",
+                    modifier = Modifier
+                        .size(150.dp)
+                        .padding(bottom = 12.dp))
+                Text(text = "Alexander Ainsley",
+                    modifier = Modifier.padding(bottom = 8.dp),
                     fontWeight = FontWeight.Bold,
                     fontSize = 20.sp
-                ),
-                onClick = { offset ->
-                    if (enabled) {
-                        enabled = false
-                        navController.navigate(ScreenRoute.EditProfile.route)
+                )
+                Spacer(modifier = Modifier.height(10.dp))
+                Divider(modifier = Modifier.padding(horizontal = 40.dp))
+
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Row (
+                modifier = Modifier.fillMaxWidth()
+            ){
+                Icon(imageVector = Icons.Outlined.Person, contentDescription = "Perfil", modifier = Modifier
+                    .padding(start = 40.dp, end = 10.dp)
+                    .clickable { navController.navigate(ScreenRoute.EditProfile.route) })
+                ClickableText(
+                    text = AnnotatedString("Editar perfil"),
+                    style = TextStyle(
+                        fontFamily = InriaSans,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    ),
+                    onClick = { offset ->
+                        if (enabled) {
+                            enabled = false
+                            navController.navigate(ScreenRoute.EditProfile.route)
+                        }
                     }
-                }
-            )
+                )
 
-            Spacer(modifier = Modifier.weight(1f))
+                Spacer(modifier = Modifier.weight(1f))
 
-            Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
-                .padding(end = 30.dp).clickable{navController.navigate(ScreenRoute.EditProfile.route)})
+                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
+                    .padding(end = 30.dp)
+                    .clickable { navController.navigate(ScreenRoute.EditProfile.route) })
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Row (
+                modifier = Modifier.fillMaxWidth()
+            ){
+                Icon(imageVector = Icons.Outlined.FavoriteBorder, contentDescription = "Favorito", modifier = Modifier
+                    .padding(start = 40.dp, end = 10.dp)
+                    .clickable { navController.navigate(ScreenRoute.wishlist.route) })
+                ClickableText(
+                    text = AnnotatedString("Mis favoritos"),
+                    style = TextStyle(
+                        fontFamily = InriaSans,
+                        fontWeight = FontWeight.Bold,
+                        fontSize = 20.sp
+                    ),
+                    onClick = { offset ->
+                        if (enabled) {
+                            enabled = false
+                            navController.navigate(ScreenRoute.wishlist.route)
+                        }
+                    }
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
+                    .padding(end = 30.dp)
+                    .clickable { navController.navigate(ScreenRoute.EditProfile.route) })
+            }
+
+            Spacer(modifier = Modifier.height(30.dp))
+
+            Row(
+                modifier = Modifier.fillMaxWidth()
+            ) {
+                Icon(imageVector = Icons.Outlined.ExitToApp, contentDescription = "Salir", tint = rojo,
+                    modifier = Modifier
+                        .padding(start = 40.dp, end = 10.dp))
+                Text(
+                    text = "Cerrar sesión",
+                    fontFamily = InriaSans,
+                    fontWeight = FontWeight.Bold,
+                    fontSize = 20.sp,
+                    color = rojo
+                )
+
+                Spacer(modifier = Modifier.weight(1f))
+
+                Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
+                    .padding(end = 30.dp))
+            }
         }
-
-        Spacer(modifier = Modifier.height(30.dp))
-
-        Row(
-            modifier = Modifier.fillMaxWidth()
-        ) {
-            Icon(imageVector = Icons.Outlined.ExitToApp, contentDescription = "Salir", tint = rojo,
-                modifier = Modifier
-                .padding(start = 40.dp, end = 10.dp))
-            Text(
-                text = "Cerrar sesión",
-                fontFamily = InriaSans,
-                fontWeight = FontWeight.Bold,
-                fontSize = 20.sp,
-                color = rojo
-            )
-
-            Spacer(modifier = Modifier.weight(1f))
-
-            Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
-                .padding(end = 30.dp))
-        }
-
-        Spacer(modifier = Modifier.height(128.dp))
-        Spacer(modifier = Modifier.height(128.dp))
-
-
-        BottomNavBar(navController = navController)
     }
 }
 

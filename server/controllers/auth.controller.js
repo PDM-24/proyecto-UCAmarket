@@ -15,26 +15,15 @@ controller.register = async (req, res, next) => {
     if (user) {
       return res.status(409).json({ error: "User already exists!" });
     }
-    if(isEmprendedor){
-      const newUser = new User({
-        username: username,
-        correo: email,
-        contrasenia: password,
-        roles: [ROLES.EMPRENDE]
-      });
-      await newUser.save();
-      return res.status(201).json({ message: "Emprendimiento registrado" });
-    }else{
-      const newUser = new User({
-        username: username,
-        correo: email,
-        contrasenia: password,
-        roles: [ROLES.USER]
-      });
-      await newUser.save();
-      return res.status(201).json({ message: "Usuario registrado" });
-    }
-    
+    const newUser = new User({
+      username: username,
+      correo: email,
+      password: password,  // Asignar directamente a la virtual
+      roles: isEmprendedor ? [ROLES.EMPRENDE] : [ROLES.USER]
+    });
+    await newUser.save();
+    return res.status(201)
+      .json({ message: isEmprendedor ? "Emprendimiento registrado" : "Usuario registrado" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -46,9 +35,11 @@ controller.login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ correo: email });
     if (!user) {
+      console.error("User not found");
       return res.status(404).json({ error: "User not found" });
     }
     if (!user.comparePassword(password)) {
+      console.error("Incorrect Password");
       return res.status(401).json({ error: "Incorrect Password" });
     }
     const token = await createToken(user._id);

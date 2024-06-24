@@ -133,7 +133,7 @@ controller.changePassword = async (req, res, next) => {
     if (!myUser) {
       return res.status(404).json({ error: "User not found" });
     }
-    myUser["contrasenia"] = password;
+    myUser.password = password;
     const updatedUser = await myUser.save();
     if (!updatedUser) {
       return res.status(500).json({ error: "Password not updated" });

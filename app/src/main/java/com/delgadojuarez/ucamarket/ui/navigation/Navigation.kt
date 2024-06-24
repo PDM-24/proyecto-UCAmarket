@@ -34,9 +34,6 @@ fun Navigation(
         composable(route = ScreenRoute.Home.route){
             Home(viewModel, navController)
         }
-        composable(route = ScreenRoute.ProductDetail.route){
-            ProductDetail(viewModel, navController)
-        }
         composable(route = ScreenRoute.Add.route){
             AddProduct(viewModel, navController)
         }
@@ -54,6 +51,12 @@ fun Navigation(
         }
         composable(route = ScreenRoute.listProducts.route){
             ListProducts(viewModel, navController)
+        }
+        composable(route = ScreenRoute.productDetail.route){
+            ProductDetail(viewModel, navController)
+        }
+        composable(route = ScreenRoute.EditProfile.route){
+            EditProfile(viewModel, navController)
         }
     }
 }

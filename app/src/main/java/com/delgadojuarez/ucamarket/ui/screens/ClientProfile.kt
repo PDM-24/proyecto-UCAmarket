@@ -181,7 +181,7 @@ fun ClientProfile(
                 Spacer(modifier = Modifier.weight(1f))
 
                 Icon(imageVector = Icons.Filled.KeyboardArrowRight, contentDescription = "Ir", modifier = Modifier
-                    .padding(end = 30.dp))
+                    .padding(end = 30.dp), tint = rojo)
             }
         }
     }

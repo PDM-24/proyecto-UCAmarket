@@ -1,11 +1,10 @@
 const Articulo = require("../models/articulo.model");
-
 const controller = {};
 
 controller.saveArt = async (req, res, next)=>{
     try {
         const { nombre, picture, descripcion, precio, etiqueta } =req.body;
-        const { id } = req.params;
+        const { id } = req.query;
         const { emprendimiento } = req;
         const _precio = parseFloat(precio);
         let articule = await Articulo.findById(id);
@@ -19,11 +18,11 @@ controller.saveArt = async (req, res, next)=>{
         };
         articule["nombre"] = nombre;
         articule["picture"] = picture;
-        articule["descripcion"] = descripcion;
+        articule["desc"] = descripcion;
         articule["precio"] = _precio;
         articule["etiquetas"] = etiqueta;
         const savedArticulo = (await art.save())
-            .populate("emprendimiento", "nombre profile_pic")
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
         if(!savedArticulo){
             return res.status(409).json({error: "Error creating articule"});
@@ -37,16 +36,10 @@ controller.saveArt = async (req, res, next)=>{
 
 controller.findAll = async(req, res, next)=>{
     try {
-        const { pagination=true, limit=5, offset=0 }= req.query;
-        const articules = await Articulo.find({ hidden: false}, undefined, {
-            sort: [{ createdAt: -1}],
-            limit: pagination?limit:undefined,
-            skip: pagination?offset:undefined 
-        }).populate("emprendimiento", "nombre profile_pic")
+        const articules = await Articulo.find({ hidden: false} )
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
-        return res.status(200).json({ articules,
-            count: pagination ? await Articulo.countDocuments({hidden: false}): undefined
-        });
+        return res.status(200).json({ articules });
     } catch (error) {
         console.error(error);
         return res.status(500).json({error: "Internal Server Error"});
@@ -55,9 +48,9 @@ controller.findAll = async(req, res, next)=>{
 
 controller.findOneById = async(req, res, next)=>{
     try {
-        const {id}= req.params;
+        const {id}= req.query;
         const articule = await Articulo.findOne({ _id: id, hidden:false })
-            .populate("emprendimiento", "nombre profile_pic")
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre")
         if(!articule){
             return res.status(404).json({ error: "Articule not found"});
@@ -71,17 +64,11 @@ controller.findOneById = async(req, res, next)=>{
 
 controller.findByEmprendimiento = async (req, res, next)=>{
     try {
-        const {id}= req.params;
-        const { pagination=true, limit=5, offset=0 }= req.query;
-        const articules = await Articulo.find({ emprendimiento: id, hidden: false }, undefined, {
-            sort: [{ createdAt: -1}],
-            limit: pagination?limit:undefined,
-            skip: pagination?offset:undefined 
-        }).populate("emprendimiento", "nombre profile_pic")
+        const {id}= req.query;
+        const articules = await Articulo.find({ emprendimiento: id, hidden: false })
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
-        return res.status(200).json({ articules,
-            count: pagination ? await Articulo.countDocuments({hidden: false}): undefined
-        });
+        return res.status(200).json({ articules });
     } catch (error) {
         console.error(error);
         return res.status(500).json({error: "Internal Server Error"});
@@ -91,15 +78,9 @@ controller.findByEmprendimiento = async (req, res, next)=>{
 controller.findOwn = async (req, res, next)=>{
     try {
         const { _id: emprendimientoId}= req.emprendimiento;
-        const { pagination=true, limit=5, offset=0 }= req.query;
-        const articules = await Articulo.find({ emprendimiento: emprendimientoId }, undefined, {
-            sort: [{ createdAt: -1}],
-            limit: pagination?limit:undefined,
-            skip: pagination?offset:undefined 
-        }).populate("etiqueta", "nombre");
-        return res.status(200).json({ articules,
-            count: pagination ? await Articulo.countDocuments({hidden: false}): undefined
-        });
+        const articules = await Articulo.find({ emprendimiento: emprendimientoId })
+            .populate("etiqueta", "nombre");
+        return res.status(200).json({ articules });
     } catch (error) {
         console.error(error);
         return res.status(500).json({error: "Internal Server Error"});
@@ -108,17 +89,11 @@ controller.findOwn = async (req, res, next)=>{
 
 controller.findByEtiqueta = async (req, res, next)=>{
     try {
-        const {id}= req.params;
-        const { pagination=true, limit=5, offset=0 }= req.query;
-        const articules = await Articulo.find({ etiquetas: id, hidden: false }, undefined, {
-            sort: [{ createdAt: -1}],
-            limit: pagination?limit:undefined,
-            skip: pagination?offset:undefined 
-        }).populate("emprendimiento", "nombre profile_pic")
+        const {id}= req.query;
+        const articules = await Articulo.find({ etiquetas: id, hidden: false })
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
-        return res.status(200).json({ articules,
-            count: pagination ? await Articulo.countDocuments({hidden: false}): undefined
-        });
+        return res.status(200).json({ articules });
     } catch (error) {
         console.error(error);
         return res.status(500).json({error: "Internal Server Error"});
@@ -127,7 +102,7 @@ controller.findByEtiqueta = async (req, res, next)=>{
 
 controller.changeHidden= async(req, res, next)=>{
     try {
-        const { id }= req.params;
+        const { id }= req.query;
         const { _id: userId }=req.user;
         const articule = await Articulo.findOne({ _id: id, user: userId });
         if(!articule){
@@ -135,7 +110,7 @@ controller.changeHidden= async(req, res, next)=>{
         };
         articule.hidden = !articule.hidden;
         const updatedArticule = (await articule.save())
-            .populate("emprendimiento", "nombre profile_pic")
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
         if(!updatedArticule){
             return res.status(500).json({ error: "Articule not updated"})
@@ -149,7 +124,7 @@ controller.changeHidden= async(req, res, next)=>{
 
 controller.changeDisponibilidad= async(req, res, next)=>{
     try {
-        const { id }= req.params;
+        const { id }= req.query;
         const { estado } = req.body;
         const art = await Articulo.findById(id);
         if(!art){
@@ -157,12 +132,12 @@ controller.changeDisponibilidad= async(req, res, next)=>{
         };
         art["estado"] = estado;
         const updatedArt = (await art.save())
-            .populate("emprendimiento", "nombre profile_pic")
+            .populate("emprendimiento", "nombre profile_pic whatsapp")
             .populate("etiqueta", "nombre");
         if(!updatedArt){
             return res.status(500).json({ error: "Articule not updated"})
         }
-        return res.status(200).json({ message: "Articule status updated", user: updatedArt });
+        return res.status(200).json({ message: "Articule status updated", articule: updatedArt });
     } catch (error) {
         console.error(error);
         return res.status(500).json({error: "Internal Server Error"});
@@ -171,9 +146,9 @@ controller.changeDisponibilidad= async(req, res, next)=>{
 
 controller.deleteOneArticle = async(req, res, next)=>{
     try {
-        const {id}= req.params;
+        const {id}= req.query;
         const { user } = req;
-        const deletedArticule = await Articulo.findOneAndDelete({ _id: id, user: user._id });
+        const deletedArticule = await Articulo.findOneAndDelete({ _id: id, emprendimiento: user._id });
         if(!deletedArticule){
             return res.status(404).json({ error: "Articule not found" });
         }

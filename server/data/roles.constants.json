@@ -2,5 +2,6 @@
     "SYSADMIN": "sysAdmin",
     "ADMIN": "admin",
     "MOD": "mod",
-    "USER": "user"
+    "USER": "user",
+    "EMPRENDE": "emprendimiento"
 }

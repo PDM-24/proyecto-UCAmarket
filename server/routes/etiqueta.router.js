@@ -1,14 +1,11 @@
 const express = require("express");
 const router = express.Router();
 const runValidation = require("../validators/index.middleware");
-
 const etiquetaController = require("../controllers/etiqueta.controller");
-const { createValidator } = require("../validators/etiqueta.validator")
-const { idInParams } = require("../validators/utils.validator");
 
-router.post("/", createValidator, runValidation, etiquetaController.create);
-router.get("/:id", idInParams, runValidation, etiquetaController.findOne);
-router.get("/", runValidation, etiquetaController.findAll);
-router.delete("/:id", idInParams, runValidation, etiquetaController.deleteOne);
+router.post("/save", runValidation, etiquetaController.create);
+router.get("/findOne", runValidation, etiquetaController.findOne);
+router.get("/findAll", runValidation, etiquetaController.findAll);
+router.delete("/delete", runValidation, etiquetaController.deleteOne);
 
 module.exports = router;

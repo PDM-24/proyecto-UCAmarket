@@ -1,7 +1,5 @@
-const Mongoose = require("mongoose");
-const Schema = Mongoose.Schema;
+const { Schema, model } = require("mongoose");
 const crypto = require("crypto");
-const debug = require('debug')("app:user-model");
 
 const userShema = new Schema({
     username:{
@@ -42,6 +40,11 @@ const userShema = new Schema({
         type: String,
         default: ""
     },
+    whatsapp: {
+        type: String,
+        trim: true,
+        default: ""
+    },
     wishlist:{
         type: [{
             user: {
@@ -59,15 +62,19 @@ const userShema = new Schema({
 }, {timestamps: true});
 userShema.methods = {
     encryptPassword: function(password) {
-        if(!password) return "";
+        if (!password) return "";
+        if (!this.salt) {
+            console.error("Salt is not defined");
+            return "";
+        }
         try {
             const _password = crypto.pbkdf2Sync(
                 password, this.salt, 1000, 64, `sha512`
             ).toString("hex");
-            return _password
+            return _password;
         } catch (error) {
-            debug({ error });
-            return "";        
+            console.error(error);
+            return "";
         }
     },
     makeSalt: function() {
@@ -79,9 +86,9 @@ userShema.methods = {
 }
 userShema
     .virtual("password")
-    .set(function(password = crypto.randomBytes(16).toString()){
+    .set(function(_psw = crypto.randomBytes(16).toString()){
         this.salt= this.makeSalt();
-        this.contrasenia=this.encryptPassword(password);
+        this.contrasenia=this.encryptPassword(_psw);
     });
 
-module.exports = Mongoose.model("Usuario", userShema);
+module.exports = model("Usuario", userShema);

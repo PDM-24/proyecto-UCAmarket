@@ -1,5 +1,4 @@
 const Etiqueta = require("../models/articulo.model");
-
 const controller = {};
 
 controller.create = async(req, res, next)=>{

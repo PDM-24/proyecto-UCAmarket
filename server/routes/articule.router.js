@@ -2,19 +2,18 @@ const express = require("express");
 const router = express.Router();
 const runValidation = require("../validators/index.middleware");
 
-const { authentication } = require("../validators/emprendimiento.middleware");
-const { createArticuleValidator, disponibilidadValidator} = require("../validators/articule.validator");
-const { idInParams, paginationValidator } = require("../validators/utils.validator")
+const ROLES = require("../data/roles.constants.json");
+const { authentication, authorization } = require("../validators/auth.middleware");
 const articuleController = require("../controllers/articulo.controller");
 
-router.post(["/", "/:id"], authentication, createArticuleValidator, runValidation, articuleController.saveArt);
-router.get("/", paginationValidator, runValidation, articuleController.findAll);
-router.get("/:id", idInParams, runValidation, articuleController.findOneById);
-router.get("/etiqueta/:id", idInParams, paginationValidator, runValidation, articuleController.findByEtiqueta);
-router.get("/emprendimiento/:id", idInParams, paginationValidator, runValidation, articuleController.findByEmprendimiento);
-router.get("/own", authentication, paginationValidator, runValidation, articuleController.findOwn);
-router.patch("/hidden/:id", authentication, idInParams, runValidation, articuleController.changeHidden);
-router.patch("/status/:id", authentication, idInParams, disponibilidadValidator , runValidation, articuleController.changeDisponibilidad);
-router.delete("/:id", authentication, idInParams, runValidation, articuleController.deleteOneArticle);
+router.post("/save", authentication, authorization(ROLES.EMPRENDE), runValidation, articuleController.saveArt);
+router.get("/findAll", runValidation, articuleController.findAll);
+router.get("/findOne", runValidation, articuleController.findOneById);
+router.get("/byEtiqueta", runValidation, articuleController.findByEtiqueta);
+router.get("/byEmprendimiento", runValidation, articuleController.findByEmprendimiento);
+router.get("/own", authentication, runValidation, articuleController.findOwn);
+router.patch("/hidden", authentication, authorization(ROLES.EMPRENDE), articuleController.changeHidden);
+router.patch("/status", authentication, authorization(ROLES.EMPRENDE), runValidation, articuleController.changeDisponibilidad);
+router.delete("/delete", authentication, authorization(ROLES.EMPRENDE), runValidation, articuleController.deleteOneArticle);
 
 module.exports = router;

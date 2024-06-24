@@ -1,5 +1,4 @@
-const Mongoose = require("mongoose");
-const Schema = Mongoose.Schema;
+const { Schema, model } = require("mongoose");
 
 const articuloShema = new Schema({
     nombre:{
@@ -12,7 +11,7 @@ const articuloShema = new Schema({
         required: true,
         trim: true
     },
-    descripcion: {
+    desc: {
         type: String,
         trim: true,
         required: true
@@ -39,9 +38,9 @@ const articuloShema = new Schema({
     },
     emprendimiento: {
         type: Schema.Types.ObjectId,
-        ref: "Emprendimiento",
+        ref: "Usuario",
         required:true
     }
 }, {timestamps: true});
 
-module.exports = Mongoose.model("Articulo", articuloShema);
+module.exports = model("Articulo", articuloShema);

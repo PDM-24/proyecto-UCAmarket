@@ -1,5 +1,4 @@
-const Mongoose = require("mongoose");
-const Schema = Mongoose.Schema;
+const { Schema, model } = require("mongoose");
 
 const etiquetaShema = new Schema({
     nombre:{
@@ -11,4 +10,4 @@ const etiquetaShema = new Schema({
     }
 }, {timestamps: true});
 
-module.exports = Mongoose.model("Etiqueta", etiquetaShema);
+module.exports = model("Etiqueta", etiquetaShema);

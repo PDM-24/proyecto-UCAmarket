@@ -1,13 +1,14 @@
 const { createToken, verifyToken } = require("../utils/jwt.tools");
-const User = require("../models/usuario.model");
 const ROLES = require("../data/roles.constants.json");
+
+const User = require("../models/usuario.model");
 const Articulo = require("../models/articulo.model");
 
 const controller = {};
 
 controller.register = async (req, res, next) => {
   try {
-    const { username, email, password } = req.body;
+    const { username, email, password, isEmprendedor } = req.body;
     const user = await User.findOne({
       $or: [{ username: username }, { correo: email }],
     });
@@ -17,11 +18,12 @@ controller.register = async (req, res, next) => {
     const newUser = new User({
       username: username,
       correo: email,
-      contrasenia: password,
-      roles: [ROLES.USER],
+      password: password,  // Asignar directamente a la virtual
+      roles: isEmprendedor ? [ROLES.EMPRENDE] : [ROLES.USER]
     });
     await newUser.save();
-    return res.status(201).json({ message: "User registered" });
+    return res.status(201)
+      .json({ message: isEmprendedor ? "Emprendimiento registrado" : "Usuario registrado" });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -33,9 +35,11 @@ controller.login = async (req, res, next) => {
     const { email, password } = req.body;
     const user = await User.findOne({ correo: email });
     if (!user) {
+      console.error("User not found");
       return res.status(404).json({ error: "User not found" });
     }
     if (!user.comparePassword(password)) {
+      console.error("Incorrect Password");
       return res.status(401).json({ error: "Incorrect Password" });
     }
     const token = await createToken(user._id);
@@ -59,10 +63,9 @@ controller.login = async (req, res, next) => {
 
 controller.aboutMe = async (req, res, next) => {
   try {
-    const { _id, username, correo, profile_pic, desc, wishlist } = req.user;
-    return res
-      .status(200)
-      .json({ _id, username, correo, profile_pic, desc, wishlist });
+    const { _id, username, correo, roles, profile_pic, desc, whatsapp, wishlist } = req.user;
+    return res.status(200)
+      .json({ _id, username, correo, roles, profile_pic, desc, whatsapp, wishlist });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -71,10 +74,8 @@ controller.aboutMe = async (req, res, next) => {
 
 controller.findOneUser = async (req, res, next) => {
   try {
-    const { id } = req.params;
+    const { id } = req.query;
     const user = await User.findById(id);
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");
     if (!user) {
       return res.status(404).json({ error: "User not found" });
     }
@@ -85,24 +86,15 @@ controller.findOneUser = async (req, res, next) => {
   }
 };
 
-controller.findAll = async (req, res, next) => {
+controller.findAllEmprendimientos = async (req, res, next) => {
   try {
-    const { pagination = true, limit = 5, offset = 0 } = req.query;
-    const articules = await User.find({ hidden: false }, undefined, {
-      sort: [{ createdAt: -1 }],
-      limit: pagination ? limit : undefined,
-      skip: pagination ? offset : undefined,
-    });
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");
-    return res
-      .status(200)
-      .json({
-        articules,
-        count: pagination
-          ? await User.countDocuments({ hidden: false })
-          : undefined,
-      });
+    const users = await User.find({ hidden: false });
+    const emprendimientos = users.map(user => {
+      const roles = user.roles;
+      return roles.includes(ROLES.EMPRENDE) ? user : null;
+    })
+    emprendimientos.filter((_user) => _user)
+    return res.status(200).json({ emprendimientos });
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
@@ -112,18 +104,17 @@ controller.findAll = async (req, res, next) => {
 controller.updateUser = async (req, res, next) => {
   try {
     const { _id } = req.user;
-    const { username, picture, desc } = req.body;
+    const { username, picture, desc, whatsapp} = req.body;
     const updatedUser = await User.findByIdAndUpdate(
       _id,
       {
         username: username,
         profile_pic: picture,
         desc: desc,
+        whatsapp: whatsapp
       },
       { new: true }
     );
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");;
     if (!updatedUser) {
       return res.status(500).json({ error: "User not found" });
     }
@@ -142,10 +133,8 @@ controller.changePassword = async (req, res, next) => {
     if (!myUser) {
       return res.status(404).json({ error: "User not found" });
     }
-    myUser["contrasenia"] = password;
+    myUser.password = password;
     const updatedUser = await myUser.save();
-    // .populate("reputacion.usuario", "username correo")
-    // .populate("reputacion", "recomendacion timestamps");
     if (!updatedUser) {
       return res.status(500).json({ error: "Password not updated" });
     }
@@ -158,12 +147,12 @@ controller.changePassword = async (req, res, next) => {
 
 controller.editWishlist = async (req, res, next) => {
   try {
-    const { articuloId } = req.body;
+    const { articuloId } = req.query;
     const user = req.user; // El usuario autenticado se obtiene del middleware
     // Verificar que el artículo exista
     const articulo = await Articulo.findById(articuloId);
     if (!articulo) {
-      return res.status(404).json({ message: 'Artículo no encontrado' });
+      return res.status(404).json({ error: 'Artículo no encontrado' });
     }
     // Verificar si el artículo ya está en la wishlist del usuario
     const wishlistItemIndex = user.wishlist.findIndex(item => item.user.toString() === articuloId);

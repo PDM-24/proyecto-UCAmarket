@@ -16,7 +16,7 @@ import com.delgadojuarez.ucamarket.ui.theme.azul
 @Composable
 fun AppButton(
     text: String,
-    onClick: () -> Unit,
+    onClick: () -> Unit = {},
     modifier: Modifier = Modifier,
     backgroundColor: Color = azul,
     elevation: Dp = 5.dp

@@ -8,16 +8,19 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.Divider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -36,6 +39,7 @@ import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.R
 import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.TopBar
+import com.delgadojuarez.ucamarket.ui.theme.InriaSans
 import com.delgadojuarez.ucamarket.ui.theme.grisTexto
 
 @Composable
@@ -115,7 +119,10 @@ fun ProductDetail(
                         elevation = ButtonDefaults.buttonElevation(5.dp)
                     ) {
                         Image(painter = painterResource(id = R.drawable.whatsapp), contentDescription = "Whatsapp icon",
-                            modifier = Modifier.size(24.dp))
+                            modifier = Modifier
+                                .size(24.dp)
+                                .background(color = Color.Black))
+                        Spacer(modifier = Modifier.width(8.dp))
                         Text(text = "Contactar", color = Color.White,
                             fontSize = 18.sp)
                     }
@@ -129,7 +136,43 @@ fun ProductDetail(
                 .padding(innerPadding)
                 .background(Color.White)
         ){
-
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(150.dp)
+            ) {
+                Image(painter = painterResource(id = R.drawable.camisa), contentDescription = "Imagen de producto")
+            }
+            Text(
+                modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+                text = "Camisa formal",
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 30.sp
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+                text = "Ropa sv",
+                fontWeight = FontWeight.ExtraBold,
+                fontSize = 20.sp,
+                color = Color.Gray,
+                fontFamily = InriaSans
+            )
+            Divider(modifier = Modifier.padding(horizontal = 30.dp))
+            Spacer(modifier = Modifier.height(20.dp))
+            Text(
+                modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+                text = "Descripción",
+                fontWeight = FontWeight.Bold,
+                fontSize = 17.sp
+            )
+            Text(
+                modifier = Modifier.padding(horizontal = 30.dp, vertical = 10.dp),
+                text = "Lorem ipsum dolor sit amet, consectetur adispiscing elit, sed do eiusmod tempor incididunt ut labore",
+                fontWeight = FontWeight.Normal,
+                fontSize = 14.sp,
+                color = Color.Gray,
+                fontFamily = InriaSans
+            )
         }
     }
 

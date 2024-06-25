@@ -21,9 +21,10 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.delgadojuarez.ucamarket.MainViewModel
 
 @Composable
-fun DeleteProductButton(onDeleteConfirmed: () -> Unit ={}) {
+fun DeleteProductButton(viewModel: MainViewModel, productId: String, onDeleteConfirmed: () -> Unit ={}) {
     var showDialog by remember { mutableStateOf(false) }
 
     Column {
@@ -69,6 +70,7 @@ fun DeleteProductButton(onDeleteConfirmed: () -> Unit ={}) {
                     Button(
                         onClick = {
                             showDialog = false
+                            viewModel.deleteProduct(productId)
                             onDeleteConfirmed()
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Color.Black)

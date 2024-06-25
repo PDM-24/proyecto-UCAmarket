@@ -38,6 +38,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
 import com.delgadojuarez.ucamarket.R
+import com.delgadojuarez.ucamarket.data.remote.model.ApiProduct
 import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.CustomOutlinedTextField
 import com.delgadojuarez.ucamarket.ui.component.TopBar
@@ -87,6 +88,14 @@ fun EditProduct(
                 text = "Guardar",
                 onClick = {
                     // Accion al dar click
+                    val apiProduct = ApiProduct(
+                        name = nombreProducto,
+                        picture = foto,
+                        desc = descripcion,
+                        precio = precio.toDoubleOrNull() ?: 0.0,
+                        etiquetas = mutableListOf(selectedIndex)
+                    )
+                    viewModel.saveProduct(null, apiProduct)
                 }
             )
         }

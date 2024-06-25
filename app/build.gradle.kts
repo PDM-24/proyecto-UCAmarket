@@ -52,6 +52,7 @@ android {
 }
 
 dependencies {
+    implementation(libs.androidx.lifecycle.runtime.compose.android)
     val retrofit_version = "2.11.0"
     val room_version = "2.6.1"
     val nav_version = "2.7.7"

@@ -12,6 +12,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.filled.Phone
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
@@ -28,9 +29,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
+import com.delgadojuarez.ucamarket.UiState
+import com.delgadojuarez.ucamarket.data.remote.model.ApiUser
 import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.CustomOutlinedTextField
 import com.delgadojuarez.ucamarket.ui.component.TopBar
@@ -52,6 +56,8 @@ fun EditProfile(
         mutableStateOf("")
     }
 
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             TopBar(
@@ -64,6 +70,14 @@ fun EditProfile(
                 text = "Guardar",
                 onClick = {
                     // Accion al dar click
+                    // Crea un objeto ApiUser con los datos ingresados
+                    val apiUser = ApiUser(
+                        name = nombreUsuario,
+                        correo = email,
+                        whatsapp = telefono
+                    )
+                    // Llama a la función updateUser del viewModel
+                    viewModel.updateUser(apiUser)
                 }
             )
         }
@@ -123,6 +137,18 @@ fun EditProfile(
                         .fillMaxWidth()
                         .padding(horizontal = 30.dp)
                 )
+
+                when (uiState) {
+                    is UiState.Loading -> CircularProgressIndicator()
+                    is UiState.Success -> {
+                        Text(text = (uiState as UiState.Success).msg)
+                    }
+                    is UiState.Error -> {
+                        Text(text = (uiState as UiState.Error).msg, color = Color.Red)
+                    }
+
+                    UiState.Ready -> TODO()
+                }
             }
         }
     }

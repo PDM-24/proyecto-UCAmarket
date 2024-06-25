@@ -52,10 +52,14 @@ android {
 }
 
 dependencies {
-
+    val retrofit_version = "2.11.0"
     val room_version = "2.6.1"
     val nav_version = "2.7.7"
     val lifecycle_version = "2.8.2"
+
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:$retrofit_version")
+    implementation("com.squareup.retrofit2:converter-gson:$retrofit_version")
 
     // ROOM
     implementation("androidx.room:room-runtime:$room_version")
@@ -63,6 +67,9 @@ dependencies {
     ksp("androidx.room:room-compiler:$room_version")
     // optional - Kotlin Extensions and Coroutines support for Room
     implementation("androidx.room:room-ktx:$room_version")
+
+    // Data store
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
 
     // Navigation
     // Jetpack Compose Integration
@@ -73,6 +80,7 @@ dependencies {
     // ViewModel utilities for Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycle_version")
 
+    implementation("androidx.core:core-splashscreen:1.0.0")
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

@@ -79,6 +79,7 @@ fun EditProfile(
                 //verticalArrangement = Arrangement.Center,
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
+                Spacer(modifier = Modifier.height(20.dp))
                 CustomOutlinedTextField(
                     value = nombreUsuario,
                     onValueChange = { nombreUsuario = it },

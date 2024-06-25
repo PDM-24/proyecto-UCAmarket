@@ -4,7 +4,6 @@ sealed class ScreenRoute (var route: String){
     object Signin: ScreenRoute("Iniciar sesion")
     object Signup: ScreenRoute("Registro")
     object Home: ScreenRoute("Home")
-    object ProductDetail: ScreenRoute("Detalle de producto")
     object Add: ScreenRoute("Agregar producto")
     object EditProduct: ScreenRoute("Editar producto")
     object EditProfile: ScreenRoute("Editar perfil de usuario")
@@ -12,4 +11,5 @@ sealed class ScreenRoute (var route: String){
     object enterprisingProfile: ScreenRoute("Perfil de usuario emprendedor")
     object wishlist: ScreenRoute("Lista de favoritos")
     object listProducts: ScreenRoute("Lista de productos de emprendedor")
+    object productDetail: ScreenRoute("Detalle de producto")
 }

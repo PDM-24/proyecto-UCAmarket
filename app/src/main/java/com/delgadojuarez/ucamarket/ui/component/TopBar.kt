@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -48,7 +49,7 @@ fun TopBar(
     Row (
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 30.dp)
+            .padding(top = 40.dp, bottom = 10.dp)
             .background(Color.White),
         verticalAlignment = Alignment.CenterVertically
     ){
@@ -56,7 +57,7 @@ fun TopBar(
             imageVector = Icons.Filled.ArrowBack,
             contentDescription = "Regresar",
             modifier = Modifier
-                .padding(start = 20.dp, end = 8.dp)
+                .padding(start = 30.dp, end = 8.dp)
                 .clickable {
                     navController.popBackStack()
                 },
@@ -72,16 +73,18 @@ fun TopBar(
         
         Spacer(modifier = Modifier.weight(1f))
 
-        if(currentRoute == ScreenRoute.ProductDetail.route){
+        if (currentRoute == ScreenRoute.productDetail.route) {
             IconButton(
                 modifier = Modifier.wrapContentSize(),
-                onClick = { isFavorite = !isFavorite } // Cambia el estado al hacer clic
+                onClick = { isFavorite = !isFavorite }
             ) {
                 Icon(
-                    modifier = Modifier.padding(end = 20.dp),
                     imageVector = if (isFavorite) Icons.Default.Favorite else Icons.Default.FavoriteBorder,
                     contentDescription = "Favorito",
-                    tint = Color.Black
+                    tint = Color.Black,
+                    modifier = Modifier
+                        .padding(end = 20.dp)
+                        .size(40.dp) // Ajusta el tamaño aquí
                 )
             }
         }

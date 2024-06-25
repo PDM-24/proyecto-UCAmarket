@@ -5,21 +5,21 @@ import com.delgadojuarez.ucamarket.data.remote.model.ApiEtiqueta
 import com.delgadojuarez.ucamarket.data.remote.model.apiResponseSuccessful
 
 class etiquetaUseCase {
-    private val api = apiClient.apiService.EtiquetaController()
+    private val api = apiClient.apiService
 
     suspend fun create(data: ApiEtiqueta): apiResponseSuccessful {
-        return api.create(data)
+        return api.createEtiqueta(data)
     }
 
     suspend fun findAll(): List<ApiEtiqueta> {
-        return api.findAll()
+        return api.findAllEtiqueta()
     }
 
     suspend fun findOne(id: String): ApiEtiqueta {
-        return api.findOne(id)
+        return api.findOneEtiqueta(id)
     }
 
     suspend fun delete(id: String): apiResponseSuccessful {
-        return api.delete(id)
+        return api.deleteEtiqueta(id)
     }
 }

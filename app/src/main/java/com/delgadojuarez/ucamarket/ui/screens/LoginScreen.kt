@@ -166,11 +166,11 @@ fun LoginScreen(
                 // Acción al hacer clic en "Regístrate"
                     navController.navigate(ScreenRoute.Signup.route)
             })
-    }
+        }
         // Muestra el indicador de carga si el estado es Loading
-                if (uiState is UiState.Loading) {
-                    CircularProgressIndicator()
-                }
+        if (uiState is UiState.Loading) {
+            CircularProgressIndicator()
+        }
 
     }
 

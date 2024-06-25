@@ -30,6 +30,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -40,15 +41,19 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.delgadojuarez.ucamarket.MainViewModel
+import com.delgadojuarez.ucamarket.UiState
 import com.delgadojuarez.ucamarket.ui.component.AppButton
 import com.delgadojuarez.ucamarket.ui.component.CustomOutlinedTextField
 import com.delgadojuarez.ucamarket.ui.component.TopBar
+import com.delgadojuarez.ucamarket.ui.navigation.ScreenRoute
 import com.delgadojuarez.ucamarket.ui.theme.InriaSans
 import com.delgadojuarez.ucamarket.ui.theme.azul
 import com.delgadojuarez.ucamarket.ui.theme.grisTextFields
@@ -77,6 +82,7 @@ fun SignupScreen(
     var foto by remember {
         mutableStateOf("")
     }
+    var password by remember { mutableStateOf("") }
 
     // Variables para Dropdown Menu
     var expanded by remember { mutableStateOf(false) }
@@ -87,6 +93,8 @@ fun SignupScreen(
     var selectedIndex by remember { mutableStateOf(usuarios[0]) }
 
     val isReadOnly by derivedStateOf { selectedIndex != "Emprendedor" }
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold (
         topBar = {
@@ -100,7 +108,12 @@ fun SignupScreen(
                 text = "Guardar",
                 onClick = {
                     // Accion al dar click
-                    Log.i("Credential","Email : $email Nombre : $nombre")
+                    viewModel.registerUser(
+                        _nombre = nombre,
+                        _correo = email,
+                        _password = password,
+                        _isEmprendedor = selectedIndex == "Emprendedor"
+                    )
                 }
             )
         }
@@ -131,6 +144,25 @@ fun SignupScreen(
                     onValueChange = { email = it },
                     label = { Text(text = "Correo electrónico") },
                     trailingIcon = { Icon(imageVector = Icons.Filled.MailOutline, contentDescription = "Email")},
+                    colors = TextFieldDefaults.outlinedTextFieldColors(
+                        containerColor = grisTextFields,
+                        cursorColor = Color.Black,
+                        focusedBorderColor = Color.Transparent,
+                        unfocusedBorderColor = Color.Transparent
+                    ),
+                    shape = RoundedCornerShape(12.dp),
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 30.dp)
+                )
+
+                Spacer(modifier = Modifier.height(20.dp))
+
+                OutlinedTextField(
+                    value = password,
+                    onValueChange = { password = it },
+                    label = { Text(text = "Contraseña") },
+                    visualTransformation = PasswordVisualTransformation(),
                     colors = TextFieldDefaults.outlinedTextFieldColors(
                         containerColor = grisTextFields,
                         cursorColor = Color.Black,
@@ -221,7 +253,7 @@ fun SignupScreen(
                         .padding(horizontal = 30.dp)
                 )
 
-                Spacer(modifier = Modifier.height(20.dp))
+                /*Spacer(modifier = Modifier.height(20.dp))
 
                 OutlinedTextField(
                     value = foto,
@@ -237,10 +269,36 @@ fun SignupScreen(
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(horizontal = 30.dp)
-                )
+                )*/
             }
         }
     }
+
+    // LaunchedEffect que reacciona a los cambios en el uiState
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is UiState.Loading -> {
+                // Muestra el indicador de carga si es necesario
+                Log.i("SignupScreen", "Loading")
+            }
+            is UiState.Success -> {
+                // Navega a la pantalla de inicio de sesión
+                Log.i("SignupScreen", (uiState as UiState.Success).msg)
+                navController.navigate(ScreenRoute.Signin.route) {
+                    // Elimina la pantalla de registro de la pila para que no se pueda volver atrás
+                    popUpTo(ScreenRoute.Signup.route) { inclusive = true }
+                }
+            }
+            is UiState.Error -> {
+                // Muestra el mensaje de error
+                Log.e("SignupScreen", (uiState as UiState.Error).msg)
+            }
+            else -> {
+                // Maneja otros estados si es necesario
+            }
+        }
+    }
+
 }
 
 @Preview(showBackground = true)

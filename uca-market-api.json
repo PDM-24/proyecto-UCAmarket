@@ -1,0 +1,1162 @@
+{
+    "_type": "export",
+    "__export_format": 4,
+    "__export_date": "2024-06-24T13:05:23.932Z",
+    "__export_source": "insomnia.desktop.app:v9.2.0",
+    "resources": [
+        {
+            "_id": "req_82f56b974b7740b3a82b2d837f8b4ac9",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719233228062,
+            "created": 1718930786084,
+            "url": "{{ _.baseUrl }}/auth/register",
+            "name": "Register",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\t\n\t\"username\": \"\" ,\n\t\"email\": \"\",\n\t\"password\": \"\",\n\t\"isEmprendedor\": false\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_9b15be3073294f3a8509eded15869118",
+                    "name": "",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700852683774,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_4037812ecee1447da9983ca80f13338b",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1719234153012,
+            "created": 1718930786082,
+            "name": "Usuarios",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1701130696129,
+            "_type": "request_group"
+        },
+        {
+            "_id": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "parentId": null,
+            "modified": 1718930786077,
+            "created": 1718930786077,
+            "name": "UCA MARKET",
+            "description": "",
+            "scope": "collection",
+            "_type": "workspace"
+        },
+        {
+            "_id": "req_b3b9c8af2d8648a2957b88cdf0c2e91c",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719233238160,
+            "created": 1718930786093,
+            "url": "{{ _.baseUrl }}/auth/login",
+            "name": "Login",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"email\": \"\",\n\t\"password\": \"\"\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_f509ea9063b7420ba39a80fa6a94de61",
+                    "name": "",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700852683724,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_3fffa2e9b5644a23b75cad3f82a62409",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719231868985,
+            "created": 1718930786086,
+            "url": "{{ _.baseUrl }}/auth/aboutme",
+            "name": "About Me",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700852683674,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_112e82d9be2a4dd1aefcf659ea87ba0e",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719205234902,
+            "created": 1718930786098,
+            "url": "{{ _.baseUrl }}/auth/findOne",
+            "name": "Find by ID",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700852380054.75,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_542a61489633465689862e5f228dcc19",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719231892361,
+            "created": 1718930786101,
+            "url": "{{ _.baseUrl }}/auth/findAll",
+            "name": "Find All",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700852228245.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_34a0b6bde0784280a7f55445ecf3b7e7",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719233025075,
+            "created": 1718930786089,
+            "url": "{{ _.baseUrl }}/auth/save",
+            "name": "Update",
+            "description": "",
+            "method": "PATCH",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{ \n\t\"username\": \"\",\n\t\"picture\": \"\",\n\t\"desc\": \"\", \n \"whatsapp\":\"\"\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700852076435.5,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_53d76dcb511e493b953b70cd5d95e9a2",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719233248043,
+            "created": 1718930786096,
+            "url": "{{ _.baseUrl }}/auth/password",
+            "name": "Password",
+            "description": "",
+            "method": "PATCH",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"password\": \"\"\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851924625.875,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_24ecba7534d54d70b4d679d8c2562520",
+            "parentId": "fld_4037812ecee1447da9983ca80f13338b",
+            "modified": 1719232593899,
+            "created": 1718930786091,
+            "url": "{{ _.baseUrl }}/auth/wishlist",
+            "name": "Wishlist",
+            "description": "",
+            "method": "PATCH",
+            "body": {
+                "mimeType": "application/x-www-form-urlencoded",
+                "params": []
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_5d241f93cc23460e89da89c4e5e92359",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851772816.25,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_14a534475cd34287826055c16a1ecad3",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233467858,
+            "created": 1718930786110,
+            "url": "{{ _.baseUrl }}/product/save",
+            "name": "Save",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"nombre\": \"\",\n\t\"picture\": \"\",\n\t\"desc\": \"\",\n\t\"precio\": \"\",\n\t\"etiquetas\": [ \"\" ]\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_5452f91fdbf44d71bbf5f155166c98d9",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851469197,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_a261a95553794d0fb41189e944301df4",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1718931901359,
+            "created": 1718930786104,
+            "name": "Articulos",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1701130696079,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_51532770a45742ceb4569e0b35f8c8a4",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233519080,
+            "created": 1718930786115,
+            "url": "{{ _.baseUrl }}/product/findAll",
+            "name": "Find All",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851410025.75,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_56cc0490a70441b595b312918df70598",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233525879,
+            "created": 1718930786108,
+            "url": "{{ _.baseUrl }}/product/findOne",
+            "name": "Find one",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_5d8ca3a04b0843a08c35837b83a4bc86",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851380440.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_350c2f7dbd3646efb1a43986a2e107fc",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233551293,
+            "created": 1718930786106,
+            "url": "{{ _.baseUrl }}/product/byEmprendimiento",
+            "name": "Find by user",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_c158bde4f0f24560b8454a589073504d",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851350854.5,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_1274acf8aa0643519249470fbc174396",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233562250,
+            "created": 1718930786114,
+            "url": "{{ _.baseUrl }}/product/byEtiqueta",
+            "name": "Find by etiqueta",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_c158bde4f0f24560b8454a589073504d",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851291683.25,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_3b35123c51e3441b9bfc09d05665182e",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233501462,
+            "created": 1718930786117,
+            "url": "{{ _.baseUrl }}/product/own",
+            "name": "Find Own",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851259480.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_4a7cc8a0b26d49fa92340afe735e2b9a",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233586800,
+            "created": 1718930786119,
+            "url": "{{ _.baseUrl }}/product/hidden",
+            "name": "Change Hidden",
+            "description": "",
+            "method": "PATCH",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_676b284724f043ca80e4c11829da4008",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851251429.3438,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_e7e028056703461db0819af3d847e9d5",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233851713,
+            "created": 1718930786125,
+            "url": "{{ _.baseUrl }}/product/status",
+            "name": "Change Status",
+            "description": "",
+            "method": "PATCH",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{\n\t\"estado\": \"\"\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_e84a750d374f4705aeaa8bbbadab5330",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851243378.5625,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_992771ccf47744678de8958adc70a900",
+            "parentId": "fld_a261a95553794d0fb41189e944301df4",
+            "modified": 1719233591209,
+            "created": 1718930786112,
+            "url": "{{ _.baseUrl }}/product/delete",
+            "name": "delete",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_e503ff83f5c04ae1b41927e2b83a9a0c",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851227277,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_13a054554dd249a1afc9e0e8a154aaf7",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719234047030,
+            "created": 1719231998232,
+            "url": "{{ _.baseUrl }}/service/save",
+            "name": "Save",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/json",
+                "text": "{ \n\t\"nombre\": \"\", \n\t\"descripcion\":\"\"\n}"
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_5452f91fdbf44d71bbf5f155166c98d9",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/json"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851469197,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1719231998200,
+            "created": 1719231998200,
+            "name": "Servicios",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1701130696054,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_9d5c7baa6a38416ea75e95656df6491c",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719234058975,
+            "created": 1719231998237,
+            "url": "{{ _.baseUrl }}/service/findOne",
+            "name": "Find All",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_1c6e3027cbf5434a92f40cd4dd53cbdd",
+                    "name": "",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851410025.75,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_fd7b694519054e198a68c965078110fa",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719233962397,
+            "created": 1719231998230,
+            "url": "{{ _.baseUrl }}/service/findOne",
+            "name": "Find one",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_5d8ca3a04b0843a08c35837b83a4bc86",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851380440.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_40fbcca4b36a405893fa91731098b834",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719234205052,
+            "created": 1719231998228,
+            "url": "{{ _.baseUrl }}/service/byEmprendimiento",
+            "name": "Find by user",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_c158bde4f0f24560b8454a589073504d",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1700851350854.5,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_e67678775e4247b581050920896fa304",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719234193424,
+            "created": 1719231998239,
+            "url": "{{ _.baseUrl }}/service/own",
+            "name": "Find Own",
+            "description": "",
+            "method": "GET",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851259480.125,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_3c58a0e6dc6a47af9f2d329990008e9f",
+            "parentId": "fld_8d69d00a842e4ba3a4e7c216ce5c4d0e",
+            "modified": 1719233999002,
+            "created": 1719231998234,
+            "url": "{{ _.baseUrl }}/service/delete",
+            "name": "delete",
+            "description": "",
+            "method": "DELETE",
+            "body": {},
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_e503ff83f5c04ae1b41927e2b83a9a0c",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.2.0"
+                }
+            ],
+            "authentication": {
+                "type": "bearer",
+                "token": "{% response 'body', 'req_b3b9c8af2d8648a2957b88cdf0c2e91c', 'b64::JC50b2tlbg==::46b', 'never', 60 %}"
+            },
+            "metaSortKey": -1700851227277,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_288457a9c94145a890ca24b4bdf99484",
+            "parentId": "fld_11360668de1d4ca6a7bdc0312af74419",
+            "modified": 1719234080727,
+            "created": 1718930786149,
+            "url": "{{ _.baseUrl }}/etiqueta/save",
+            "name": "Create",
+            "description": "",
+            "method": "POST",
+            "body": {
+                "mimeType": "application/x-www-form-urlencoded",
+                "params": [
+                    {
+                        "id": "pair_7db5db0d7da740efbc25284de661b183",
+                        "name": "nombre",
+                        "value": "",
+                        "description": ""
+                    }
+                ]
+            },
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1701224138077,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "fld_11360668de1d4ca6a7bdc0312af74419",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1718930786148,
+            "created": 1718930786148,
+            "name": "Etiquetas",
+            "description": "",
+            "environment": {},
+            "environmentPropertyOrder": null,
+            "metaSortKey": -1701130696029,
+            "_type": "request_group"
+        },
+        {
+            "_id": "req_5cd00e8e6fe94140b808dc65eb4b3a48",
+            "parentId": "fld_11360668de1d4ca6a7bdc0312af74419",
+            "modified": 1719234108357,
+            "created": 1718930786150,
+            "url": "{{ _.baseUrl }}/etiqueta/findAll",
+            "name": "Find All",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/x-www-form-urlencoded",
+                "params": []
+            },
+            "preRequestScript": "",
+            "parameters": [],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1701223953482,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2f7fab6120c848b98c89833cf8995844",
+            "parentId": "fld_11360668de1d4ca6a7bdc0312af74419",
+            "modified": 1719234116104,
+            "created": 1718930786152,
+            "url": "{{ _.baseUrl }}/etiqueta/findOne",
+            "name": "Find One",
+            "description": "",
+            "method": "GET",
+            "body": {
+                "mimeType": "application/x-www-form-urlencoded",
+                "params": []
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_f66fed7fc511431c94e3d55064bfcd3d",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1701223861184.5,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "req_2aaf7954f8c74efa9304889e1b8f2c14",
+            "parentId": "fld_11360668de1d4ca6a7bdc0312af74419",
+            "modified": 1719234120858,
+            "created": 1718930786154,
+            "url": "{{ _.baseUrl }}/etiqueta/delete",
+            "name": "Delete One",
+            "description": "",
+            "method": "DELETE",
+            "body": {
+                "mimeType": "application/x-www-form-urlencoded",
+                "params": []
+            },
+            "preRequestScript": "",
+            "parameters": [
+                {
+                    "id": "pair_1d5364b6b8a8450ba5d48e565934a41d",
+                    "name": "id",
+                    "value": "",
+                    "description": ""
+                }
+            ],
+            "headers": [
+                {
+                    "name": "Content-Type",
+                    "value": "application/x-www-form-urlencoded"
+                },
+                {
+                    "name": "User-Agent",
+                    "value": "insomnia/8.4.5"
+                }
+            ],
+            "authentication": {},
+            "metaSortKey": -1701223815035.75,
+            "isPrivate": false,
+            "pathParameters": [],
+            "settingStoreCookies": true,
+            "settingSendCookies": true,
+            "settingDisableRenderRequestBody": false,
+            "settingEncodeUrl": true,
+            "settingRebuildPath": true,
+            "settingFollowRedirects": "global",
+            "_type": "request"
+        },
+        {
+            "_id": "env_a784862ecff34a89a4f7552ba5331161",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1719203274562,
+            "created": 1718930786078,
+            "name": "Base Environment",
+            "data": {
+                "baseUrl": "https://ucamarket-backend.vercel.app/api",
+                "localUrl": "http://localhost:3000/api"
+            },
+            "dataPropertyOrder": {
+                "&": [
+                    "baseUrl",
+                    "localUrl"
+                ]
+            },
+            "color": null,
+            "isPrivate": false,
+            "metaSortKey": 1700850830679,
+            "_type": "environment"
+        },
+        {
+            "_id": "jar_f751410d4606466a93b35849c3ddf0da",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1718930786080,
+            "created": 1718930786080,
+            "name": "Default Jar",
+            "cookies": [],
+            "_type": "cookie_jar"
+        },
+        {
+            "_id": "spc_c14c6775293c4181bff9da272e664f0d",
+            "parentId": "wrk_280095b10d854c4a9c1faf61802d5dad",
+            "modified": 1718930786253,
+            "created": 1718930786250,
+            "fileName": "UCA MARKET",
+            "contents": "",
+            "contentType": "yaml",
+            "_type": "api_spec"
+        }
+    ]
+}

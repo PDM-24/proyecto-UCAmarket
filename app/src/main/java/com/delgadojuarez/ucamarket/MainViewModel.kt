@@ -235,26 +235,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun createProduct(apiProduct: ApiProduct) {
+    fun saveProduct(id: String?, apiProduct: ApiProduct) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _uiState.value = UiState.Loading
-                val createResponse = productApi.create(_myToken.value, apiProduct)
-                // Optionally update local state or perform additional actions
-                _uiState.value = UiState.Success("Product created successfully")
-            } catch (e: HttpException) {
-                _uiState.value = UiState.Error("Failed to create product: ${e.message()}")
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to create product: ${e.message}")
-            }
-        }
-    }
-
-    fun updateProduct(id: String, apiProduct: ApiProduct) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _uiState.value = UiState.Loading
-                val updateResponse = productApi.update(_myToken.value, id, apiProduct)
+                val updateResponse = productApi.save(_myToken.value, id, apiProduct)
                 // Optionally update local state or perform additional actions
                 _uiState.value = UiState.Success("Product updated successfully")
             } catch (e: HttpException) {
@@ -372,26 +357,11 @@ class MainViewModel : ViewModel() {
         }
     }
 
-    fun createService(apiService: ApiServices) {
+    fun saveService(id: String?, apiService: ApiServices) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
                 _uiState.value = UiState.Loading
-                val createResponse = serviceApi.create(_myToken.value, apiService)
-                // Optionally update local state or perform additional actions
-                _uiState.value = UiState.Success("Service created successfully")
-            } catch (e: HttpException) {
-                _uiState.value = UiState.Error("Failed to create service: ${e.message()}")
-            } catch (e: Exception) {
-                _uiState.value = UiState.Error("Failed to create service: ${e.message}")
-            }
-        }
-    }
-
-    fun updateService(id: String, apiService: ApiServices) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                _uiState.value = UiState.Loading
-                val updateResponse = serviceApi.update(_myToken.value, id, apiService)
+                val updateResponse = serviceApi.save(_myToken.value, id, apiService)
                 // Optionally update local state or perform additional actions
                 _uiState.value = UiState.Success("Service updated successfully")
             } catch (e: HttpException) {

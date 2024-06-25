@@ -5,38 +5,33 @@ import com.delgadojuarez.ucamarket.data.remote.model.ApiServices
 import com.delgadojuarez.ucamarket.data.remote.model.apiResponseSuccessful
 
 class serviceUseCase {
-    private val api = apiClient.apiService.ServiceController()
+    private val api = apiClient.apiService
 
-    suspend fun create(_t: String, data: ApiServices): apiResponseSuccessful {
+    suspend fun save(_t: String, id: String?, data: ApiServices): apiResponseSuccessful {
         val token = "Bearer $_t"
-        return api.create(token, data)
-    }
-
-    suspend fun update(_t: String, id: String, data: ApiServices): apiResponseSuccessful {
-        val token = "Bearer $_t"
-        return api.update(token, id, data)
+        return api.saveService(token, id, data)
     }
 
     suspend fun findAll(): List<ApiServices> {
-        return api.findAll()
+        return api.findAllServices()
     }
 
     suspend fun findOne(id: String): ApiServices {
-        return api.findOne(id)
+        return api.findOneServices(id)
     }
 
     suspend fun findByEmprendimiento(id: String): List<ApiServices> {
-        return api.findByEmprendimiento(id)
+        return api.findServicesByEmprendimiento(id)
     }
 
     suspend fun findOwn(_t: String): List<ApiServices> {
         val token = "Bearer $_t"
-        return api.findOwn(token)
+        return api.findOwnServices(token)
     }
 
     suspend fun delete(_t: String, id: String): apiResponseSuccessful {
         val token = "Bearer $_t"
-        return api.delete(token, id)
+        return api.deleteServices(token, id)
     }
 
 }

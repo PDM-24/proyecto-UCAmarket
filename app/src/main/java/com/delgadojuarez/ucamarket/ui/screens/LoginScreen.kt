@@ -21,12 +21,14 @@ import androidx.compose.material.icons.filled.MailOutline
 import androidx.compose.material.icons.sharp.Lock
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -47,6 +49,8 @@ import com.delgadojuarez.ucamarket.ui.navigation.ScreenRoute
 import com.delgadojuarez.ucamarket.ui.theme.azul
 import com.delgadojuarez.ucamarket.ui.theme.grisTextFields
 import com.delgadojuarez.ucamarket.ui.theme.grisTexto
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.delgadojuarez.ucamarket.UiState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -61,6 +65,8 @@ fun LoginScreen(
     var password by remember {
         mutableStateOf("")
     }
+
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Column(
         modifier = Modifier.fillMaxSize(),
@@ -120,7 +126,7 @@ fun LoginScreen(
         Spacer(modifier = Modifier.height(32.dp))
 
         Button(onClick = {
-            Log.i("Credential","Email : $email Password : $password")
+            viewModel.loginUser(email, password)
         },
             modifier = Modifier
                 .fillMaxWidth()
@@ -134,12 +140,12 @@ fun LoginScreen(
 
         Spacer(modifier = Modifier.height(32.dp))
 
-        Text(
+        /*Text(
             text = "¿Olvidaste tu contraseña?",
             fontWeight = FontWeight.ExtraBold,
             modifier = Modifier.clickable {
             // Acción al hacer clic en "¿Olvidaste tu contraseña?"
-        })
+        })*/
 
         Spacer(modifier = Modifier.height(140.dp))// Espacio antes de los textos
 
@@ -161,7 +167,35 @@ fun LoginScreen(
                     navController.navigate(ScreenRoute.Signup.route)
             })
     }
+        // Muestra el indicador de carga si el estado es Loading
+                if (uiState is UiState.Loading) {
+                    CircularProgressIndicator()
+                }
 
+    }
+
+    // LaunchedEffect que reacciona a los cambios en el uiState
+    LaunchedEffect(uiState) {
+        when (uiState) {
+            is UiState.Loading -> {
+                // Muestra el indicador de carga si es necesario
+            }
+            is UiState.Success -> {
+                // Navega a la pantalla principal (Home)
+                Log.i("LoginScreen", (uiState as UiState.Success).msg)
+                navController.navigate(ScreenRoute.Home.route) {
+                    // Elimina la pantalla de inicio de sesión de la pila para que no se pueda volver atrás
+                    popUpTo(ScreenRoute.Signin.route) { inclusive = true }
+                }
+            }
+            is UiState.Error -> {
+                // Muestra el mensaje de error
+                Log.e("LoginScreen", (uiState as UiState.Error).msg)
+            }
+            else -> {
+                // Maneja otros estados si es necesario
+            }
+        }
     }
 }
 

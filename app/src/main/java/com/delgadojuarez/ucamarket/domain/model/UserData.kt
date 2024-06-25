@@ -1,4 +1,4 @@
-package com.delgadojuarez.ucamarket.model
+package com.delgadojuarez.ucamarket.domain.model
 
 data class RegisterData(
     var username: String = "",

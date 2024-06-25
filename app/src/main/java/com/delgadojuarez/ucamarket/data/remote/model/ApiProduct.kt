@@ -14,7 +14,7 @@ data class ApiServices(
     val desc: String = "",
 
     @SerializedName(value = ApiConstants.PRODUCT_EMPRENDIMIENTO)
-    val contacto: ApiUser
+    val contacto: String = ""
 
 )
 
@@ -38,10 +38,10 @@ data class ApiProduct (
     val estado: String = "",
 
     @SerializedName(value = ApiConstants.PRODUCT_EMPRENDIMIENTO)
-    val emprendimiento: ApiUser,
+    val emprendimiento: String = "",
 
     @SerializedName(value = ApiConstants.PRODUCT_ETIQUETAS)
-    val etiquetas: MutableList<ApiEtiqueta> = arrayListOf(),
+    val etiquetas: MutableList<String> = arrayListOf(),
 
     @SerializedName(value = ApiConstants.GENERAL_TIMESTAMPS)
     val timestamp: String = ""

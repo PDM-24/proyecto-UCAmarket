@@ -17,7 +17,12 @@ data class UpdateUserResponse(
     val user: ApiUser
 )
 
-data class wishlistResponse(
+data class WishlistResponse(
     val message: String,
     val wishlist: List<ApiProduct>
+)
+
+data class UpdateProductResponse(
+    val message: String,
+    val user: ApiProduct
 )
